@@ -1,0 +1,71 @@
+import React from 'react';
+import { FaCut, FaEdit, FaSpa, FaTrash } from 'react-icons/fa';
+import { FaHandHoldingHeart } from 'react-icons/fa6';
+import styles from './AppointmentCard.module.scss';
+
+interface Appointment {
+    id: string;
+    type: string;
+    clientName: string;
+    date: string;
+    time: string;
+    status: string;
+    price: string;
+}
+
+interface AppointmentCardProps {
+    appointments: Appointment[];
+}
+
+const AppointmentCard: React.FC<AppointmentCardProps> = ({ appointments }) => {
+    const getIconForType = (type: string) => {
+        switch (type) {
+            case 'haircut':
+                return <FaCut className="text-2xl text-blue-500" />;
+            case 'massage':
+                return <FaSpa className="text-2xl text-purple-500" />;
+            case 'consultation':
+                return <FaHandHoldingHeart className="text-2xl text-pink-500" />;
+            default:
+                return <FaCut className="text-2xl text-gray-500" />;
+        }
+    };
+
+    return (
+        <div className="divide-y divide-gray-200">
+            {appointments.map((appointment) => (
+                <div key={appointment.id} className={`cursor-pointer ${styles.appointment__card}`}>
+                    <div className="flex items-start justify-between">
+                        <div className="flex items-start space-x-3">
+                            <div className="mt-1 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                {getIconForType(appointment.type)}
+                            </div>
+                            <div>
+                                <h4 className="font-medium text-gray-800">{`${appointment.type.charAt(0).toUpperCase() + appointment.type.slice(1)} - ${appointment.clientName}`}</h4>
+                                <p className="text-sm text-gray-500">{`${appointment.date} • ${appointment.time}`}</p>
+                                <div className="mt-1 flex items-center space-x-2">
+                                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                                        {appointment.status}
+                                    </span>
+                                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                        {appointment.price}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex space-x-2">
+                            <button className="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded-full">
+                                <FaEdit />
+                            </button>
+                            <button className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full">
+                                <FaTrash />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+};
+
+export default AppointmentCard;
