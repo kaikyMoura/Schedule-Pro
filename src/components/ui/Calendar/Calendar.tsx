@@ -2,6 +2,7 @@ import React from 'react';
 import dayjs from 'dayjs';
 import { FaChevronDown, FaChevronLeft, FaChevronRight, FaPlus } from 'react-icons/fa6';
 import styles from './Calendar.module.scss';
+import Link from 'next/link';
 
 interface Appointment {
     id: string;
@@ -56,9 +57,9 @@ const Calendar: React.FC<CalendarProps> = ({ appointments }) => {
                 <div className="flex items-center justify-between">
                     <h3 className="text-lg font-semibold text-gray-800">Calendar</h3>
                     <div className="flex items-center space-x-2">
-                        <button className="flex items-center gap-1 px-3 py-1 text-sm rounded-md bg-blue-50 text-blue-600 hover:bg-blue-100">
+                        <Link href="/appointments/new" className="flex items-center gap-1 px-3 py-1 text-sm rounded-md bg-blue-50 text-blue-600 hover:bg-blue-100">
                             <FaPlus className='mr-1' /> New Appointment
-                        </button>
+                        </Link>
                         <div className="relative">
                             <select className="appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-1 px-3 pr-8 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
                                 <option>Day</option>

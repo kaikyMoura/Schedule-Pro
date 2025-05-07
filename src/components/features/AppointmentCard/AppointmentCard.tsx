@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { FaCut, FaEdit, FaSpa, FaTrash } from 'react-icons/fa';
 import { FaHandHoldingHeart } from 'react-icons/fa6';
 import styles from './AppointmentCard.module.scss';
@@ -15,10 +15,13 @@ interface Appointment {
 
 interface AppointmentCardProps {
     appointments: Appointment[];
+    limit?: number;
 }
 
-const AppointmentCard: React.FC<AppointmentCardProps> = ({ appointments }) => {
-    const getIconForType = (type: string) => {
+const AppointmentCard: React.FC<AppointmentCardProps> = ({ appointments, limit = 5 }) => {
+    const displayedAppointments = appointments.slice(0, limit);
+
+    const getIconForType = useCallback((type: string) => {
         switch (type) {
             case 'haircut':
                 return <FaCut className="text-2xl text-blue-500" />;
@@ -29,12 +32,31 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({ appointments }) => {
             default:
                 return <FaCut className="text-2xl text-gray-500" />;
         }
-    };
+    }, []);
+
+    const getColor = useCallback((status: string) => {
+        switch (status) {
+            case 'Pending':
+                return 'bg-yellow-100 text-orange-600';
+            case 'Confirmed':
+                return 'bg-blue-100 text-blue-800';
+            case 'Completed':
+                return 'bg-green-100 text-green-600';
+            case 'Cancelled':
+                return 'bg-red-100 text-red-600';
+            default:
+                return 'bg-gray-100 text-gray-600';
+        }
+    }, []);
+
+    useEffect(() => {
+        console.log(appointments);
+    }, [appointments, getColor, getIconForType]);
 
     return (
         <div className="divide-y divide-gray-200">
-            {appointments.map((appointment) => (
-                <div key={appointment.id} className={`cursor-pointer ${styles.appointment__card}`}>
+            {displayedAppointments.map((appointment) => (
+                <div key={appointment.id} className={`cursor-pointer p-4 ${styles.appointment__card}`}>
                     <div className="flex items-start justify-between">
                         <div className="flex items-start space-x-3">
                             <div className="mt-1 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
@@ -44,7 +66,7 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({ appointments }) => {
                                 <h4 className="font-medium text-gray-800">{`${appointment.type.charAt(0).toUpperCase() + appointment.type.slice(1)} - ${appointment.clientName}`}</h4>
                                 <p className="text-sm text-gray-500">{`${appointment.date} • ${appointment.time}`}</p>
                                 <div className="mt-1 flex items-center space-x-2">
-                                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                                    <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${getColor(appointment.status)}`}>
                                         {appointment.status}
                                     </span>
                                     <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">

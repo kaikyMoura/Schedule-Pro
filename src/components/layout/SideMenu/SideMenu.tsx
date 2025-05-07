@@ -19,13 +19,13 @@ const SideMenu = ({ title, items, services }: SideMenuProps) => {
 
     return (
         <aside className={`hidden md:flex md:flex-shrink-0 sticky top-0 left-0 h-screen`}>
-            <div className={`flex flex-col w-(--sidebar-width) border-r border-gray-200 bg-(--component-color)`}>
-                <button id="mobile-menu-button" className="md:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded-lg shadow-lg">
+            <div className={`flex flex-col w-(--sidebar-width) border-r border-gray-200 bg-(--component-color) overflow-y-auto`}>
+                <button id="mobile-menu-button" className="sm:visible md:visible lg:hidden absolute top-4 left-4 z-50 bg-white p-2 rounded-lg shadow-lg">
                     <FaBars className="text-blue-500" />
                 </button>
                 <div className="flex items-center h-16 px-4 border-b border-gray-200">
                     <div className="flex items-center justify-start w-full ml-2">
-                        <FaCalendarCheck className='text-primary-50 text-2xl mr-2' />
+                        <FaCalendarCheck className='text-blue-500 text-2xl mr-2' />
                         <span className="text-xl font-semibold text-gray-800">{title}</span>
                     </div>
                 </div>

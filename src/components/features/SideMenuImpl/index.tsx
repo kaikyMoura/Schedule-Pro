@@ -1,7 +1,7 @@
 import React from "react"
 import { FaCut, FaHandHoldingHeart, FaSpa } from "react-icons/fa"
 import { FaCalendarDays, FaChartLine, FaCreditCard, FaUsers } from "react-icons/fa6"
-import SideMenu from "../ui/SideMenu"
+import SideMenu from "../../layout/SideMenu"
 import { MdSpaceDashboard } from "react-icons/md"
 
 const SideMenuImpl = () => {

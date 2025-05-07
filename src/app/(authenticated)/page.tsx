@@ -1,7 +1,8 @@
 "use client";
-import AppointmentCard from "@/components/ui/AppointmentCard";
+import AppointmentCard from "@/components/features/AppointmentCard";
 import Calendar from "@/components/ui/Calendar";
-import CustomerList from "@/components/ui/CustomerList";
+import CustomerList from "@/components/features/CustomerList";
+import Link from "next/link";
 import { FaUserPlus } from "react-icons/fa";
 import { FaChartPie, FaFileInvoiceDollar, FaPlus } from "react-icons/fa6";
 
@@ -10,7 +11,7 @@ const customers = [
     id: '1',
     name: 'John Smith',
     appointmentsCount: 3,
-    photoUrl: 'https://randomuser.me/api/portraits/men/1.jpg',  // URL da foto do usuário
+    photoUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
   },
   {
     id: '2',
@@ -72,12 +73,21 @@ const appointments = [
     status: 'Confirmed',
     price: '$30.00',
   },
+  {
+    id: '4',
+    type: 'haircut',
+    clientName: 'Emily Davis',
+    date: 'June 9, 2023',
+    time: '1:00 PM - 1:45 PM',
+    status: 'Cancelled',
+    price: '$40.00',
+  },
 ];
 
 export default function Home() {
 
   return (
-    <div className="flex md:flex-row gap-4 lg:flex-col gap-2">
+    <div className="flex md:flex-wrap gap-4 lg:flex-col gap-2">
       <div>
         <Calendar appointments={appointments} />
       </div>
@@ -87,7 +97,7 @@ export default function Home() {
           <h3 className="text-lg font-semibold text-gray-800">Upcoming Appointments</h3>
         </div>
         {appointments != undefined ?
-          <AppointmentCard appointments={[]} />
+          <AppointmentCard appointments={appointments} />
           :
           <div className="p-4 text-center text-gray-500">No appointments found</div>
         }
@@ -103,12 +113,13 @@ export default function Home() {
         </div>
 
         <div className="p-5 grid grid-cols-2 gap-4">
-          <button className="flex flex-col items-center justify-center p-4 rounded-lg border border-gray-200 hover:border-blue-300 hover:bg-blue-50">
+          <Link href={"/appointments/new"}
+            className="flex flex-col items-center justify-center p-4 rounded-lg border border-gray-200 hover:border-blue-300 hover:bg-blue-50">
             <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mb-2">
               <FaPlus className="text-blue-500" />
             </div>
             <span className="text-sm font-medium text-gray-700">New Appointment</span>
-          </button>
+          </Link>
 
           <button className="flex flex-col items-center justify-center p-4 rounded-lg border border-gray-200 hover:border-purple-300 hover:bg-purple-50">
             <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mb-2">
