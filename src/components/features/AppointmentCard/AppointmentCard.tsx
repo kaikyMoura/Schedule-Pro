@@ -45,7 +45,7 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({ appointments, limit =
             case 'Cancelled':
                 return 'bg-red-100 text-red-600';
             default:
-                return 'bg-gray-100 text-gray-600';
+                return 'bg-gray-100 text-(--secondary-text-color)';
         }
     }, []);
 
@@ -63,8 +63,8 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({ appointments, limit =
                                 {getIconForType(appointment.type)}
                             </div>
                             <div>
-                                <h4 className="font-medium text-gray-800">{`${appointment.type.charAt(0).toUpperCase() + appointment.type.slice(1)} - ${appointment.clientName}`}</h4>
-                                <p className="text-sm text-gray-500">{`${appointment.date} • ${appointment.time}`}</p>
+                                <h4 className="font-medium text-(--primary-text-color)">{`${appointment.type.charAt(0).toUpperCase() + appointment.type.slice(1)} - ${appointment.clientName}`}</h4>
+                                <p className="text-sm text-(--tertiary-text-color)">{`${appointment.date} • ${appointment.time}`}</p>
                                 <div className="mt-1 flex items-center space-x-2">
                                     <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${getColor(appointment.status)}`}>
                                         {appointment.status}

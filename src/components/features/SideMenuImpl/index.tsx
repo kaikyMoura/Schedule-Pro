@@ -15,7 +15,7 @@ const SideMenuImpl = () => {
                 items={[
                     { name: "Dashboard", link: "/", icon: <MdSpaceDashboard /> },
                     { name: "Appointments", link: "/appointments", icon: <FaCalendarDays /> },
-                    { name: "Clients", link: "/clients", icon: <FaUsers /> },
+                    { name: "Customers", link: "/customers", icon: <FaUsers /> },
                     { name: "Payments", link: "/payments", icon: <FaCreditCard /> },
                     { name: "Reports", link: "/reports", icon: <FaChartLine /> }
                 ]}

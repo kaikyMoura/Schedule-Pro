@@ -58,15 +58,15 @@ const SearchBar = <T extends object>({
 
             </div>
             {query && !isLoading && filteredData.length > 0 && (
-                <ul className={`sticky w-full bg-white shadow-md rounded-md cursor-pointer ${styles.search_input__results}`}>
+                <ul className={`sticky w-full bg-(--component-color) shadow-md rounded-md cursor-pointer ${styles.search_input__results}`}>
                     {filteredData.map((item, i) => (
                         <li key={i} className="cursor-pointer">
-                            <Link href="#" className='flex items-center gap-4 p-2 border-b border-gray-200 ' onClick={clearInput}>
+                            <Link href="#" className='flex items-center gap-4 p-2 border-b border-gray-200' onClick={clearInput}>
                                 <Image
                                     onLoad={() => setIsLoading(false)} src={item[imageKey!] as string} alt='customer-photo' loading="lazy" width={40} height={40}
                                     className='rounded-full h-10 w-10' />
                                 {keys.map((key, index) => (
-                                    <p key={index} className="font-medium text-lg">{item[key!] as React.ReactNode}</p>
+                                    <p key={index} className="font-medium text-lg text-(--primary-text-color)">{item[key!] as React.ReactNode}</p>
                                 ))}
                             </Link>
                         </li>

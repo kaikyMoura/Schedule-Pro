@@ -10,7 +10,7 @@ interface InputProps {
     label?: string;
     value?: string;
     placeholder: string;
-    type: 'text' | 'password' | 'email' | 'number' | 'file';
+    type: 'text' | 'password' | 'email' | 'number' | 'file' | 'tel';
     maxLength?: number;
     accept?: string;
     required?: boolean;
@@ -36,9 +36,9 @@ const Input = ({
     const renderIcon = useMemo(() => {
         if (type !== 'password') return null;
         return showPassword ? (
-            <FaEyeSlash className='text-(--text-color)' />
+            <FaEyeSlash className='text-(--primary-text-color)' />
         ) : (
-            <FaEye className='text-(--text-color)' />
+            <FaEye className='text-(--primary-text-color)' />
         );
     }, [showPassword, type]);
 
@@ -46,12 +46,12 @@ const Input = ({
 
     return (
         <div className="flex flex-col gap-[0.5rem]">
-            {label && <label className='block text-sm font-medium text-gray-700' htmlFor={label}>{label}</label>}
+            {label && <label className='block text-sm font-medium text-(--primary-text-color)' htmlFor={label}>{label}</label>}
 
             <div className="relative flex items-center">
                 <input
                     id={label}
-                    className="flex-1 pr-[2.5rem] text-(--text-color) bg-(--component-color) border border-gray-200 py-2 px-3 pr-10 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                    className="flex-1 pr-[2.5rem] text-(--primary-text-color) bg-(--component-color) border border-gray-200 py-2 px-3 pr-10 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                     type={inputType}
                     onClick={onClick}
                     placeholder={placeholder}

@@ -1,33 +1,34 @@
-// 'use client';
-// import React, { createContext, ReactNode, useEffect, useState } from "react";
+'use client';
+import React, { createContext, ReactNode, useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
-// type Theme = "dark" | "light"
+type Theme = "dark" | "light"
 
-// interface ThemeContextProps {
-//     theme: Theme;
-//     toggleTheme: () => void;
-// }
+interface ThemeContextProps {
+    theme: Theme;
+    toggleTheme: () => void;
+}
 
-// const ThemeContext = createContext<ThemeContextProps | undefined>(undefined)
+const ThemeContext = createContext<ThemeContextProps | undefined>(undefined)
 
-// export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-//     // const preferedTheme = Cookies.get("theme") as Theme | undefined;
-//     // // const [theme, setTheme] = useState(preferedTheme || "dark");
+const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+    const preferedTheme = Cookies.get("theme") as Theme | undefined;
+    const [theme, setTheme] = useState(preferedTheme || "dark");
 
-//     // useEffect(() => {
-//     //     Cookies.set("theme", theme, { expires: 365, path: "/" });
+    useEffect(() => {
+        Cookies.set("theme", theme, { expires: 365, path: "/" });
 
-//     //     document.documentElement.setAttribute("data-theme", theme);
-//     //     console.log(theme)
-//     // }, [theme]);
+        document.documentElement.setAttribute("data-theme", theme);
+        console.log(theme)
+    }, [theme]);
 
-//     // const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
-    
-//     return (
-//         <ThemeContext.Provider value={{ theme, toggleTheme }}>
-//             {children}
-//         </ThemeContext.Provider>
-//     )
-// }
+    const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
 
-// export default ThemeContext
+    return (
+        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+            {children}
+        </ThemeContext.Provider>
+    )
+}
+
+export { ThemeContext, ThemeProvider };

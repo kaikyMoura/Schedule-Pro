@@ -25,7 +25,7 @@ const SideMenu = ({ title, items, services, isOpen }: SideMenuProps) => {
                 <div className="flex items-center h-16 px-4 border-b border-gray-200">
                     <div className="flex items-center justify-start w-full ml-2">
                         <FaCalendarCheck className='text-blue-500 text-2xl mr-2' />
-                        <span className="text-xl font-semibold text-gray-800">{title}</span>
+                        <span className="text-xl font-semibold text-(--primary-text-color)">{title}</span>
                     </div>
                 </div>
 
@@ -33,12 +33,12 @@ const SideMenu = ({ title, items, services, isOpen }: SideMenuProps) => {
                     <nav className="flex-1 px-2 py-4 space-y-1">
                         <ul className="space-y-2">
                             {items.map((item, index) => (
-                                <li key={index} className="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-200 group">
+                                <li key={index} className="flex items-center px-4 py-2 text-sm font-medium text-(--secondary-text-color) rounded-md hover:bg-gray-200 group">
                                     <Link href={item.link} className="flex items-center gap-4 w-full"
                                         aria-label={item.name}
                                         data-tooltip-id="my-tooltip"
                                         data-tooltip-content={item.tooltip}>
-                                        <i className="text-primary-500 text-2xl mr-2">
+                                        <i className="text-2xl mr-2">
                                             {item.icon}
                                         </i>
                                         {item.name}
@@ -55,12 +55,12 @@ const SideMenu = ({ title, items, services, isOpen }: SideMenuProps) => {
                             <nav className="flex-1 px-2 py-4 space-y-1">
                                 <ul className="space-y-2">
                                     {services.map((item, index) => (
-                                        <li key={index} className="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-200 group">
+                                        <li key={index} className="flex items-center px-4 py-2 text-sm font-medium text-(--secondary-text-color) rounded-md hover:bg-gray-200 group">
                                             <Link href={item.link} className="flex items-center gap-4 w-full"
                                                 aria-label={item.name}
                                                 data-tooltip-id="my-tooltip"
                                                 data-tooltip-content={item.tooltip}>
-                                                <i className="text-primary-500 text-2xl mr-2">
+                                                <i className="text-2xl mr-2">
                                                     {item.icon}
                                                 </i>
                                                 {item.name}
@@ -85,8 +85,8 @@ const SideMenu = ({ title, items, services, isOpen }: SideMenuProps) => {
                             height={40}
                             alt="User profile" />
                         <div className="ml-3">
-                            <p className="text-sm font-medium text-gray-700">Sarah Johnson</p>
-                            <p className="text-xs font-medium text-gray-500">Owner</p>
+                            <p className="text-sm font-medium text-(--primary-text-color)">Sarah Johnson</p>
+                            <p className="text-xs font-medium text-(--tertiary-text-color)">Owner</p>
                         </div>
                     </div>
                 </div>

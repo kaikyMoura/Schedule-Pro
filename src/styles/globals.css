@@ -3,7 +3,14 @@
 
 :root {
   --background: #f0f9ff;
-  --text-color: #161616;
+  --secondary-bg: #F9FAFB;
+  /* This is equivalent to bg-gray-50 */
+  --primary-text-color: #1F2937;
+  /* This is equivalent to text-gray-800 */
+  --secondary-text-color: #4B5563;
+  /* This is equivalent to text-gray-600 */
+  --tertiary-text-color: #6B7280;
+  /* This is equivalent to text-gray-500 */
   --component-color: #ffff;
   --sidebar-width: 256px;
   --primary-color: #0ea5e9;
@@ -19,7 +26,10 @@
 
 [data-theme="dark"] {
   --background: #161616;
-  --text-color: #f0f9ff;
+  --secondary-bg: #45494e;
+  --primary-text-color: #f0f9ff;
+  --secondary-text-color: #94a3b8;
+  --tertiary-text-color: #6B7280;
   --component-color: #2e2e2e;
 }
 
@@ -29,6 +39,7 @@ html {
 }
 
 ::-webkit-scrollbar {
+  background: #fff;
   width: 6px;
   height: 6px;
 }
@@ -40,6 +51,7 @@ html {
 
 body {
   height: 100%;
+  width: 100%;
   overflow: auto;
   margin: 0;
   color: var(--text-color);

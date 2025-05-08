@@ -29,7 +29,7 @@ const DateInput: React.FC<DateInputProps> = ({
     return (
         <div className="flex flex-col gap-1">
             {label && (
-                <label htmlFor={inputId} className="text-sm font-medium text-gray-700">
+                <label htmlFor={inputId} className="text-sm font-medium text-(--primary-text-color)">
                     {label}
                 </label>
             )}
@@ -43,11 +43,11 @@ const DateInput: React.FC<DateInputProps> = ({
                 placeholderText="yyyy/MM/dd"
                 required={required}
                 dateFormat="yyyy/MM/dd"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-(--primary-text-color)"
                 popperClassName="shadow-lg rounded-md border border-gray-200"
                 calendarClassName="bg-white p-2 rounded-md"
             />
-            <FaRegCalendar className="absolute inset-y-8.5 right-2 flex items-center pointer-events-none text-gray-500" />
+            <FaRegCalendar className="absolute inset-y-8.5 right-2 flex items-center pointer-events-none text-(--tertiary-text-color)" />
         </div>
     );
 };

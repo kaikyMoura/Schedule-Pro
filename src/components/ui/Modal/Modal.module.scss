@@ -1,0 +1,18 @@
+.modal {
+    transform: translateY(-50px);
+    animation: fadeIn 0.5s forwards;
+    box-shadow: 0px 8px 24px rgba(16, 24, 40, 0.18);
+    overflow-x: auto;
+}
+
+@keyframes fadeIn {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

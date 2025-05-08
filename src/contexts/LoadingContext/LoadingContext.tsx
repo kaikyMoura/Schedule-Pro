@@ -9,7 +9,7 @@ interface LoadingContextProps {
 
 const LoadingContext = createContext<LoadingContextProps | undefined>(undefined)
 
-export const LoadingProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+const LoadingProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [isLoading, setLoading] = useState(false);
 
     return (
@@ -20,4 +20,4 @@ export const LoadingProvider: React.FC<{ children: ReactNode }> = ({ children })
     );
 };
 
-export default LoadingContext;
+export { LoadingContext, LoadingProvider }
