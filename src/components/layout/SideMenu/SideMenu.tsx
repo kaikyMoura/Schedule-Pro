@@ -2,8 +2,8 @@
 import Image from "next/image"
 import Link from "next/link"
 import { ReactNode } from "react"
-import { FaBars, FaCalendarCheck } from "react-icons/fa6"
-// import styles from "./SideMenu.module.scss"
+import { FaCalendarCheck } from "react-icons/fa6"
+// import "./SideMenu.module.scss"
 
 interface SideMenuProps {
     title: string,
@@ -13,22 +13,22 @@ interface SideMenuProps {
     services?: {
         name: string, link: string, icon: ReactNode, tooltip?: string
     }[]
+    isOpen?: boolean
 }
 
-const SideMenu = ({ title, items, services }: SideMenuProps) => {
+const SideMenu = ({ title, items, services, isOpen }: SideMenuProps) => {
 
     return (
-        <aside className={`hidden md:flex md:flex-shrink-0 sticky top-0 left-0 h-screen`}>
-            <div className={`flex flex-col w-(--sidebar-width) border-r border-gray-200 bg-(--component-color) overflow-y-auto`}>
-                <button id="mobile-menu-button" className="sm:visible md:visible lg:hidden absolute top-4 left-4 z-50 bg-white p-2 rounded-lg shadow-lg">
-                    <FaBars className="text-blue-500" />
-                </button>
+        <aside
+            className={`md:flex md:flex-shrink-0 sticky top-0 left-0 h-screen z-100 ${isOpen ? 'visible' : 'hidden'}`}>
+            <div className={`flex flex-col w-(--sidebar-width) border-r border-gray-200 bg-(--component-color) overflow-y-auto z-100`}>
                 <div className="flex items-center h-16 px-4 border-b border-gray-200">
                     <div className="flex items-center justify-start w-full ml-2">
                         <FaCalendarCheck className='text-blue-500 text-2xl mr-2' />
                         <span className="text-xl font-semibold text-gray-800">{title}</span>
                     </div>
                 </div>
+
                 <div className="flex flex-col flex-grow overflow-y-auto custom-scrollbar">
                     <nav className="flex-1 px-2 py-4 space-y-1">
                         <ul className="space-y-2">

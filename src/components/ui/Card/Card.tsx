@@ -19,7 +19,7 @@ const Card = ({ children, className, pages = 1, title }: {
 
     return (
         <div className={styles.card__container}>
-            <div className={`bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden ${className}`}>
+            <div className={`bg-(--component-color) rounded-xl shadow-sm border border-gray-200 overflow-hidden ${className}`}>
                 {currentPage ?
                     <button className={`${styles.arrows}`} onClick={() => handlePageChange(currentPage - 1)}>
                         <FaArrowLeft className='cursor-pointer' fontSize={26} />

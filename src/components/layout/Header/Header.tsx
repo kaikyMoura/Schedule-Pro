@@ -8,9 +8,11 @@ const Header = () => {
     return (
         <header className="bg-white shadow-sm sticky top-0 left-0 right-0 z-100 w-full h-16 max-w-full">
             <div className="px-4 py-3 sm:px-6 lg:px-8 flex justify-between items-center">
-                <h1 className="text-xl font-semibold text-gray-900">
-                    Appointment Calendar
-                </h1>
+                <div className='flex justify-center w-full'>
+                    <h1 className="text-lg font-semibold text-gray-900">
+                        DashBoard
+                    </h1>
+                </div>
                 <div className="flex items-center gap-4">
                     <div className="relative">
                         <button

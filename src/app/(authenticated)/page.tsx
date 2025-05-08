@@ -1,7 +1,8 @@
 "use client";
 import AppointmentCard from "@/components/features/AppointmentCard";
-import Calendar from "@/components/ui/Calendar";
 import CustomerList from "@/components/features/CustomerList";
+import Calendar from "@/components/ui/Calendar";
+import Card from "@/components/ui/Card";
 import Link from "next/link";
 import { FaUserPlus } from "react-icons/fa";
 import { FaChartPie, FaFileInvoiceDollar, FaPlus } from "react-icons/fa6";
@@ -50,7 +51,7 @@ const appointments = [
     id: '1',
     type: 'haircut',
     clientName: 'John Smith',
-    date: 'June 3, 2023',
+    date: '2025-06-01',
     time: '10:00 AM - 10:45 AM',
     status: 'Confirmed',
     price: '$45.00',
@@ -59,7 +60,7 @@ const appointments = [
     id: '2',
     type: 'massage',
     clientName: 'Alice Johnson',
-    date: 'June 5, 2023',
+    date: '2025-06-05',
     time: '2:30 PM - 3:15 PM',
     status: 'Pending',
     price: '$60.00',
@@ -68,7 +69,7 @@ const appointments = [
     id: '3',
     type: 'consultation',
     clientName: 'Bob Lee',
-    date: 'June 7, 2023',
+    date: '2025-06-08',
     time: '11:00 AM - 12:00 PM',
     status: 'Confirmed',
     price: '$30.00',
@@ -77,7 +78,7 @@ const appointments = [
     id: '4',
     type: 'haircut',
     clientName: 'Emily Davis',
-    date: 'June 9, 2023',
+    date: '2025-06-10',
     time: '1:00 PM - 1:45 PM',
     status: 'Cancelled',
     price: '$40.00',
@@ -87,27 +88,30 @@ const appointments = [
 export default function Home() {
 
   return (
-    <div className="flex md:flex-wrap gap-4 lg:flex-col gap-2">
-      <div>
-        <Calendar appointments={appointments} />
+    <div className="sm:flex sm:flex-col sm:gap-6 md:grid md:grid-cols-2 md:gap-6">
+      <div className="lg:w-180 max-h-full">
+        <Card className="w-full">
+          <Calendar appointments={appointments} />
+        </Card>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div className="p-5 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-800">Upcoming Appointments</h3>
-        </div>
-        {appointments != undefined ?
-          <AppointmentCard appointments={appointments} />
-          :
-          <div className="p-4 text-center text-gray-500">No appointments found</div>
-        }
-        <div className="p-4 border-t border-gray-200 text-center">
-          <button className="text-sm font-medium text-blue-600 hover:text-blue-700">
-            View all appointments
-          </button>
-        </div>
+      <div className="lg:justify-self-end">
+        <Card className="h-full md:w-full sm:w-full">
+          <div className="p-5 border-b border-gray-200">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-semibold text-gray-800">Recent Customers</h3>
+            </div>
+          </div>
+          <CustomerList customers={customers} limit={8} />
+          <div className="p-4 border-t border-gray-200 text-center">
+            <button className="text-sm font-medium text-blue-600 hover:text-blue-700">
+              View all Customers
+            </button>
+          </div>
+        </Card>
       </div>
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+
+      <Card className="h-full w-full">
         <div className="p-5 border-b border-gray-200">
           <h3 className="text-lg font-semibold text-gray-800">Quick Actions</h3>
         </div>
@@ -142,59 +146,64 @@ export default function Home() {
             <span className="text-sm font-medium text-gray-700">Reports</span>
           </button>
         </div>
-      </div>
+      </Card>
 
-
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      <Card className="w-full">
         <div className="p-5 border-b border-gray-200">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-gray-800">Recent Customers</h3>
+            <h3 className="text-lg font-semibold text-gray-800">Upcoming Appointments</h3>
           </div>
         </div>
-        <CustomerList customers={customers} limit={5} />
+        {appointments != undefined ?
+          <AppointmentCard appointments={appointments} />
+          :
+          <div className="p-4 text-center text-gray-500">No appointments found</div>
+        }
         <div className="p-4 border-t border-gray-200 text-center">
           <button className="text-sm font-medium text-blue-600 hover:text-blue-700">
-            View all Customers
+            View all appointments
           </button>
         </div>
-      </div>
+      </Card>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div className="p-5 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-800">Business Stats</h3>
-        </div>
-
-        <div className="p-5 space-y-4">
-          <div>
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-sm font-medium text-gray-600">Appointments this week</span>
-              <span className="text-sm font-semibold text-gray-800">8</span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div className="bg-blue-500 h-2 rounded-full" style={{ width: "80%" }}></div>
-            </div>
+      <div className="col-span-2">
+        <Card className="w-full">
+          <div className="p-5 border-b border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-800">Business Stats</h3>
           </div>
 
-          <div>
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-sm font-medium text-gray-600">Revenue this month</span>
-              <span className="text-sm font-semibold text-gray-800">$1,245.00</span>
+          <div className="p-5 space-y-4">
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-sm font-medium text-gray-600">Appointments this week</span>
+                <span className="text-sm font-semibold text-gray-800">8</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="bg-blue-500 h-2 rounded-full" style={{ width: "80%" }}></div>
+              </div>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div className="bg-green-500 h-2 rounded-full" style={{ width: "65%" }}></div>
-            </div>
-          </div>
 
-          <div>
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-sm font-medium text-gray-600">New customers</span>
-              <span className="text-sm font-semibold text-gray-800">3</span>
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-sm font-medium text-gray-600">Revenue this month</span>
+                <span className="text-sm font-semibold text-gray-800">$1,245.00</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="bg-green-500 h-2 rounded-full" style={{ width: "65%" }}></div>
+              </div>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div className="bg-purple-500 h-2 rounded-full" style={{ width: "30%" }}></div>
+
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-sm font-medium text-gray-600">New customers</span>
+                <span className="text-sm font-semibold text-gray-800">3</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="bg-purple-500 h-2 rounded-full" style={{ width: "30%" }}></div>
+              </div>
             </div>
           </div>
-        </div>
+        </Card>
       </div>
     </div>
   );

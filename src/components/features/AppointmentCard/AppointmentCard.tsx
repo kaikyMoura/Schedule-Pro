@@ -30,7 +30,7 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({ appointments, limit =
             case 'consultation':
                 return <FaHandHoldingHeart className="text-2xl text-pink-500" />;
             default:
-                return <FaCut className="text-2xl text-gray-500" />;
+                return <FaCut className="text-2xl text-blue-500" />;
         }
     }, []);
 

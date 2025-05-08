@@ -47,7 +47,7 @@ const SearchBar = <T extends object>({
     };
 
     return (
-        <div>
+        <div className=''>
             <div className='relative'>
                 <div className="relative">
                     <Input type="text" label={label} placeholder={placeholder} value={query} onChange={(e: { target: { value: SetStateAction<string>; }; }) => setQuery(e.target.value)} />

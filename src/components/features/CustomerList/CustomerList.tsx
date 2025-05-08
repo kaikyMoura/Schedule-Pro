@@ -19,7 +19,7 @@ const CustomerList: React.FC<CustomerListProps> = ({ customers, limit = 5 }) => 
     return (
         <div className="divide-y divide-gray-200">
             {displayedCustomers.map((customer) => (
-                <div key={customer.id} className="p-4 hover:bg-gray-50 cursor-pointer">
+                <div key={customer.id} className="p-4 hover:bg-gray-50 cursor-pointer transition delay-100 duration-300 ease-in-out hover:-translate-y-1 shadow">
                     <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 rounded-full overflow-hidden">
                             <Image

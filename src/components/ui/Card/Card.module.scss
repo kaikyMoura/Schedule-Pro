@@ -1,15 +1,12 @@
 .card__container {
     width: 100%;
-}
-
-.card__container::-webkit-scrollbar {
-    display: none;
+    height: 100%;
 }
 
 
 @media (min-width: 0px) and (max-width: 768px) {
     .card__container {
-        padding: 20px;
+     width: 100%;
     }
 
     .arrows {
