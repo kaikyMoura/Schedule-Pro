@@ -2,23 +2,15 @@ import React, { useCallback, useEffect } from 'react';
 import { FaCut, FaEdit, FaSpa, FaTrash } from 'react-icons/fa';
 import { FaHandHoldingHeart } from 'react-icons/fa6';
 import styles from './AppointmentCard.module.scss';
-
-interface Appointment {
-    id: string;
-    type: string;
-    clientName: string;
-    date: string;
-    time: string;
-    status: string;
-    price: string;
-}
+import { Appointment } from '@/types/Appointment';
 
 interface AppointmentCardProps {
     appointments: Appointment[];
+    onSelect?: (action: 'edit' | 'delete', appointment: Appointment) => void;
     limit?: number;
 }
 
-const AppointmentCard: React.FC<AppointmentCardProps> = ({ appointments, limit = 5 }) => {
+const AppointmentCard: React.FC<AppointmentCardProps> = ({ appointments, onSelect, limit = 5 }) => {
     const displayedAppointments = appointments.slice(0, limit);
 
     const getIconForType = useCallback((type: string) => {
@@ -56,7 +48,7 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({ appointments, limit =
     return (
         <div className="divide-y divide-gray-200">
             {displayedAppointments.map((appointment) => (
-                <div key={appointment.id} className={`cursor-pointer p-4 ${styles.appointment__card}`}>
+                <div key={appointment.id} className={`cursor-pointer p-4 ${styles.appointment__card} hover:bg-blue-100`}>
                     <div className="flex items-start justify-between">
                         <div className="flex items-start space-x-3">
                             <div className="mt-1 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
@@ -76,10 +68,12 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({ appointments, limit =
                             </div>
                         </div>
                         <div className="flex space-x-2">
-                            <button className="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded-full">
+                            <button type="button" className="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded-full"
+                                onClick={() => onSelect?.('edit', appointment)}>
                                 <FaEdit />
                             </button>
-                            <button className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full">
+                            <button type='button' className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full"
+                                onClick={() => onSelect?.('delete', appointment)}>
                                 <FaTrash />
                             </button>
                         </div>
