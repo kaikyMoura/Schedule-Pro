@@ -111,7 +111,7 @@ const Calendar: React.FC<CalendarProps> = ({ appointments, minDate, maxDate }) =
                             <FaPlus className='mr-1' /> New Appointment
                         </Link>
                         <div className="relative">
-                            <select className="appearance-none bg-gray-50 border border-gray-200 text-(--primary-text-color) py-1 px-3 pr-8 cursor-pointer rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            <select className="appearance-none bg-(--secondary-bg) border border-gray-200 text-(--primary-text-color) py-1 px-3 pr-8 cursor-pointer rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
                                 defaultValue="Month">
                                 <option>Day</option>
                                 <option>Week</option>

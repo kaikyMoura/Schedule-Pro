@@ -1,10 +1,16 @@
 'use client'
 
-import ThemeSwitcher from '@/components/ui/ThemeSwitcher'
+import { useNotificationSidebar } from '@/components/features/NotificationSidebar/hook'
+import ThemeSwitcher from '@/components/features/ThemeSwitcher'
+import { useNotificationStore } from '@/stores/useNotificationStore'
 import { FaBell } from 'react-icons/fa'
 import { FaUser } from 'react-icons/fa6'
 
 const Header = () => {
+    const { openOrCloseSidebar } = useNotificationSidebar()
+    const { getNotifications } = useNotificationStore()
+
+    const notifications = getNotifications()
 
     return (
         <header className="bg-(--component-color) shadow-sm sticky top-0 left-0 right-0 z-100 w-full h-16 max-w-full">
@@ -15,11 +21,15 @@ const Header = () => {
                 <div className="flex items-center gap-4">
                     <div className="relative">
                         <button
+                            type="button"
                             aria-label="Notifications"
                             className="p-2 text-(--tertiary-text-color) rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 relative"
-                        >
+                            onClick={openOrCloseSidebar}>
                             <FaBell className='text-xl' />
-                            <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-red-500 border border-white"></span>
+                            {notifications.length > 0 &&
+                                <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-red-500 border border-white">
+                                </span>
+                            }
                         </button>
                     </div>
                     <div className="w-px h-8 bg-gray-200"></div>
