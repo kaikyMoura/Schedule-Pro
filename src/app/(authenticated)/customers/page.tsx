@@ -2,6 +2,7 @@
 import CustomerList from "@/components/features/CustomerList";
 import Card from "@/components/ui/Card";
 import Modal from "@/components/ui/Modal";
+import SearchInput from "@/components/ui/SearchInput";
 import { Customer } from "@/types/Customer";
 import Image from "next/image";
 import { useState } from "react";
@@ -74,13 +75,18 @@ const Customers = () => {
 
     return (
         <div>
+            <div className="mb-6">
+                <SearchInput data={customers} keys={["name", "email"]}
+                    imageKey={"photoUrl"}
+                    placeholder="Search for a customer..." label={"Search for customers"} onSelect={(customer) => handleSelect(customer)} />
+            </div>
             <Card className="h-full md:w-full sm:w-full">
                 <div className="p-5 border-b border-gray-200">
                     <div className="flex items-center justify-between">
                         <h3 className="text-lg font-semibold text-(--primary-text-color)">Customers</h3>
                     </div>
                 </div>
-                <CustomerList customers={customers} onSelect={handleSelect} />
+                <CustomerList customers={customers} onSelect={(customer) => handleSelect(customer)} />
             </Card>
             {isModalOpen && <Modal isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(!isModalOpen)} >
                 <div className="max-w-sm mx-auto p-6">

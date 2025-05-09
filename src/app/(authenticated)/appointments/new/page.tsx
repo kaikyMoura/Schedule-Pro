@@ -258,7 +258,7 @@ const CreateAppointment = () => {
                             <div className="mb-6">
                                 <SearchInput data={customers} keys={["name", "email"]}
                                     imageKey={"photoUrl"}
-                                    placeholder="Search for a customer..." label={"Search for customers"} />
+                                    placeholder="Search for a customer..." label={"Search for customers"} onSelect={(customer) => setSelectedCustomer(customer)} />
                             </div>
 
                             <div className="mb-6">

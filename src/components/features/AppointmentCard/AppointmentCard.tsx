@@ -1,8 +1,8 @@
+import { Appointment } from '@/types/Appointment';
 import React, { useCallback, useEffect } from 'react';
 import { FaCut, FaEdit, FaSpa, FaTrash } from 'react-icons/fa';
 import { FaHandHoldingHeart } from 'react-icons/fa6';
 import styles from './AppointmentCard.module.scss';
-import { Appointment } from '@/types/Appointment';
 
 interface AppointmentCardProps {
     appointments: Appointment[];

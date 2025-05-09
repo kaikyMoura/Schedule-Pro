@@ -12,6 +12,7 @@ interface SearchBarProps<T extends object> {
     imageKey?: keyof T;
     label: string;
     keys: (keyof T)[];
+    onSelect: (item: T) => void;
 }
 
 const SearchBar = <T extends object>({
@@ -19,7 +20,8 @@ const SearchBar = <T extends object>({
     data: allData,
     imageKey,
     label,
-    keys, }: SearchBarProps<T>
+    keys,
+    onSelect }: SearchBarProps<T>
 ) => {
 
     const [query, setQuery] = useState('');
@@ -61,7 +63,12 @@ const SearchBar = <T extends object>({
                 <ul className={`sticky w-full bg-(--component-color) shadow-md rounded-md cursor-pointer ${styles.search_input__results}`}>
                     {filteredData.map((item, i) => (
                         <li key={i} className="cursor-pointer">
-                            <Link href="#" className='flex items-center gap-4 p-2 border-b border-gray-200' onClick={clearInput}>
+                            <Link href="#" className='flex items-center gap-4 p-2 border-b border-gray-200' onClick={
+                                () => {
+                                    onSelect(item);
+                                    clearInput();
+                                }
+                            }>
                                 <Image
                                     onLoad={() => setIsLoading(false)} src={item[imageKey!] as string} alt='customer-photo' loading="lazy" width={40} height={40}
                                     className='rounded-full h-10 w-10' />
