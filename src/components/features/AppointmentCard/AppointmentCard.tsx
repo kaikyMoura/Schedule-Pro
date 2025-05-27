@@ -13,8 +13,8 @@ interface AppointmentCardProps {
 const AppointmentCard: React.FC<AppointmentCardProps> = ({ appointments, onSelect, limit = 5 }) => {
     const displayedAppointments = appointments.slice(0, limit);
 
-    const getIconForType = useCallback((type: string) => {
-        switch (type) {
+    const getIconForType = useCallback((serviceId: string) => {
+        switch (serviceId) {
             case 'haircut':
                 return <FaCut className="text-2xl text-blue-500" />;
             case 'massage':
@@ -28,13 +28,13 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({ appointments, onSelec
 
     const getColor = useCallback((status: string) => {
         switch (status) {
-            case 'Pending':
+            case 'PENDING':
                 return 'bg-yellow-100 text-orange-600';
-            case 'Confirmed':
+            case 'CONFIRMED':
                 return 'bg-blue-100 text-blue-800';
-            case 'Completed':
+            case 'COMPLETED':
                 return 'bg-green-100 text-green-600';
-            case 'Cancelled':
+            case 'CANCELLED':
                 return 'bg-red-100 text-red-600';
             default:
                 return 'bg-gray-100 text-(--secondary-text-color)';
@@ -52,17 +52,17 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({ appointments, onSelec
                     <div className="flex items-start justify-between">
                         <div className="flex items-start space-x-3">
                             <div className="mt-1 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                                {getIconForType(appointment.type)}
+                                {getIconForType(appointment.serviceId)}
                             </div>
                             <div>
-                                <h4 className="font-medium text-(--primary-text-color)">{`${appointment.type.charAt(0).toUpperCase() + appointment.type.slice(1)} - ${appointment.clientName}`}</h4>
-                                <p className="text-sm text-(--tertiary-text-color)">{`${appointment.date} • ${appointment.time}`}</p>
+                                <h4 className="font-medium text-(--primary-text-color)">{`${appointment.serviceId} - ${appointment.customerId}`}</h4>
+                                <p className="text-sm text-(--tertiary-text-color)">{`${appointment.date.toISOString().split('T')[0]} • ${appointment.time}`}</p>
                                 <div className="mt-1 flex items-center space-x-2">
                                     <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${getColor(appointment.status)}`}>
                                         {appointment.status}
                                     </span>
                                     <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
-                                        {appointment.price}
+                                        $ {appointment.price}
                                     </span>
                                 </div>
                             </div>

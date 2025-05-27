@@ -75,7 +75,7 @@ const Customers = () => {
 
     return (
         <div>
-            <div className="mb-6">
+            <div className="mb-6 sm:w-full md:w-full lg:w-1/2">
                 <SearchInput data={customers} keys={["name", "email"]}
                     imageKey={"photoUrl"}
                     placeholder="Search for a customer..." label={"Search for customers"} onSelect={(customer) => handleSelect(customer)} />
@@ -102,7 +102,7 @@ const Customers = () => {
                         </div>
                         <h2 className="text-xl font-bold text-(--primary-text-color)">{selectedCustomer?.name}</h2>
 
-                        <div className="flex flex-col text-start w-full border-t border-gray-200 pt-4 text-md text-(--secondary-text-color) space-y-2">
+                        <div className="flex flex-col text-start w-full border-t border-gray-200 pt-4 text-md text-(--primary-text-color) space-y-2">
                             <p><span className="font-medium">Email:</span> {selectedCustomer?.email}</p>
                             <p><span className="font-medium">Phone:</span> {selectedCustomer?.number}</p>
                             <p><span className="font-medium">Last Appointment:</span> {selectedCustomer?.lastAppointment}</p>

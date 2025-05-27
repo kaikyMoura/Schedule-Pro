@@ -134,6 +134,15 @@ const availableStaff = [
     "Jim Halpert",
 ]
 
+const user = {
+    id: '1',
+    name: 'Sarah Johnson',
+    email: 'sarah.johnson123@example.com',
+    number: '123-456-7890',
+    photo: 'https://randomuser.me/api/portraits/women/44.jpg',
+    role: 'CUSTOMER'
+}
+
 const CreateAppointment = () => {
     const { setLoading } = useLoading()
     const router = useRouter()
@@ -188,7 +197,7 @@ const CreateAppointment = () => {
         <div className="min-h-screen max-h-screen">
             <Card className="w-full min-h-screen">
                 <form className="p-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className={` ${user.role === "ADMIN" ? "grid grid-cols-1 md:grid-cols-2 gap-6" : ""}`}>
                         <div>
                             <h3 className="text-lg font-semibold text-(--primary-text-color) mb-4">Appointment Details</h3>
 
@@ -252,83 +261,86 @@ const CreateAppointment = () => {
                                     value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} placeholder="Any special requests or notes..."></textarea>
                             </div>
                         </div>
-                        <div>
-                            <h3 className="text-lg font-semibold text-(--primary-text-color) mb-4">Customer</h3>
+                        {/* This section will only be available to users with admin role */}
+                        {user.role === "ADMIN" && (
+                            <div>
+                                <h3 className="text-lg font-semibold text-(--primary-text-color) mb-4">Customer</h3>
 
-                            <div className="mb-6">
-                                <SearchInput data={customers} keys={["name", "email"]}
-                                    imageKey={"photoUrl"}
-                                    placeholder="Search for a customer..." label={"Search for customers"} onSelect={(customer) => setSelectedCustomer(customer)} />
-                            </div>
-
-                            <div className="mb-6">
-                                <div className="flex items-center mb-3">
-                                    <div className="flex-1 border-t border-gray-200"></div>
-                                    <span className="px-3 text-sm text-(--tertiary-text-color)">or</span>
-                                    <div className="flex-1 border-t border-gray-200"></div>
+                                <div className="mb-6">
+                                    <SearchInput data={customers} keys={["name", "email"]}
+                                        imageKey={"photoUrl"}
+                                        placeholder="Search for a customer..." label={"Search for customers"} onSelect={(customer) => setSelectedCustomer(customer)} />
                                 </div>
-                                <button type="button" className="flex items-center justify-center w-full py-2 px-3 border border-dashed border-gray-300 rounded-md text-(--secondary-text-color) hover:text-blue-500 hover:border-blue-300 hover:bg-blue-50"
-                                    onClick={() => setShowAddCustomerModal(true)}>
-                                    <FaUserPlus className="mr-2" />
-                                    <p>Add new customer</p>
-                                </button>
-                            </div>
 
-                            <div className="space-y-3 mb-6">
-                                <ul>
-                                    {customers.map((customer) => (
-                                        <li key={customer.id}
-                                            className={`${styles.customer__card} p-4 border border-gray-200 rounded-md cursor-pointer hover:bg-blue-50 hover:border-blue-300 ${selectedCustomer?.id === customer.id ? 'bg-blue-50 focus:border-blue-300' : ''}`}
-                                            onClick={() => setSelectedCustomer(customer)}>
-                                            <div className="flex items-center space-x-3">
-                                                <div className="w-10 h-10 rounded-full overflow-hidden">
-                                                    {customer.photoUrl ?
-                                                        <Image
-                                                            src={customer.photoUrl}
-                                                            alt={customer.name}
-                                                            className="object-cover w-full h-full"
-                                                            width={40}
-                                                            height={40} />
-                                                        :
-                                                        <FaUser className="object-cover w-full h-full text-blue-500" />
-                                                    }
+                                <div className="mb-6">
+                                    <div className="flex items-center mb-3">
+                                        <div className="flex-1 border-t border-gray-200"></div>
+                                        <span className="px-3 text-sm text-(--tertiary-text-color)">or</span>
+                                        <div className="flex-1 border-t border-gray-200"></div>
+                                    </div>
+                                    <button type="button" className="flex items-center justify-center w-full py-2 px-3 border border-dashed border-gray-300 rounded-md text-(--secondary-text-color) hover:text-blue-500 hover:border-blue-300 hover:bg-blue-50"
+                                        onClick={() => setShowAddCustomerModal(true)}>
+                                        <FaUserPlus className="mr-2" />
+                                        <p>Add new customer</p>
+                                    </button>
+                                </div>
+
+                                <div className="space-y-3 mb-6">
+                                    <ul>
+                                        {customers.map((customer) => (
+                                            <li key={customer.id}
+                                                className={`${styles.customer__card} p-4 border border-gray-200 rounded-md cursor-pointer hover:bg-blue-50 hover:border-blue-300 ${selectedCustomer?.id === customer.id ? 'bg-blue-50 focus:border-blue-300' : ''}`}
+                                                onClick={() => setSelectedCustomer(customer)}>
+                                                <div className="flex items-center space-x-3">
+                                                    <div className="w-10 h-10 rounded-full overflow-hidden">
+                                                        {customer.photoUrl ?
+                                                            <Image
+                                                                src={customer.photoUrl}
+                                                                alt={customer.name}
+                                                                className="object-cover w-full h-full"
+                                                                width={40}
+                                                                height={40} />
+                                                            :
+                                                            <FaUser className="object-cover w-full h-full text-blue-500" />
+                                                        }
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="font-medium text-(--secondary-text-color)">{customer.name}</h4>
+                                                        <p className="text-sm text-(--tertiary-text-color)">{customer.number} • {customer.email}</p>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <h4 className="font-medium text-(--secondary-text-color)">{customer.name}</h4>
-                                                    <p className="text-sm text-(--tertiary-text-color)">{customer.number} • {customer.email}</p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
 
-                            <div className="border-t border-gray-200 pt-4">
-                                <h4 className="font-medium text-(--primary-text-color) mb-3">Customer Details</h4>
-                                <div className="grid grid-cols-2 gap-4 mb-4">
-                                    <div>
-                                        <label className="block text-xs font-medium text-(--tertiary-text-color) mb-1">First Name</label>
-                                        <p className="text-sm text-(--primary-text-color)">{selectedCustomer?.name}</p>
+                                <div className="border-t border-gray-200 pt-4">
+                                    <h4 className="font-medium text-(--primary-text-color) mb-3">Customer Details</h4>
+                                    <div className="grid grid-cols-2 gap-4 mb-4">
+                                        <div>
+                                            <label className="block text-xs font-medium text-(--tertiary-text-color) mb-1">First Name</label>
+                                            <p className="text-sm text-(--primary-text-color)">{selectedCustomer?.name}</p>
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs font-medium text-(--tertiary-text-color) mb-1">Phone</label>
+                                            <p className="text-sm text-(--primary-text-color)">{selectedCustomer?.number}</p>
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs font-medium text-(--tertiary-text-color) mb-1">Email</label>
+                                            <p className="text-sm text-(--primary-text-color)">{selectedCustomer?.email}</p>
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs font-medium text-(--tertiary-text-color) mb-1">Last Appointment</label>
+                                            <p className="text-sm text-(--primary-text-color)">{selectedCustomer?.lastAppointment}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label className="block text-xs font-medium text-(--tertiary-text-color) mb-1">Phone</label>
-                                        <p className="text-sm text-(--primary-text-color)">{selectedCustomer?.number}</p>
+                                    <div className="mb-4">
+                                        <label className="block text-xs font-medium text-(--tertiary-text-color) mb-1">Customer Notes</label>
+                                        <p className="text-sm text-(--primary-text-color)">{notes}</p>
                                     </div>
-                                    <div>
-                                        <label className="block text-xs font-medium text-(--tertiary-text-color) mb-1">Email</label>
-                                        <p className="text-sm text-(--primary-text-color)">{selectedCustomer?.email}</p>
-                                    </div>
-                                    <div>
-                                        <label className="block text-xs font-medium text-(--tertiary-text-color) mb-1">Last Appointment</label>
-                                        <p className="text-sm text-(--primary-text-color)">{selectedCustomer?.lastAppointment}</p>
-                                    </div>
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-xs font-medium text-(--tertiary-text-color) mb-1">Customer Notes</label>
-                                    <p className="text-sm text-(--primary-text-color)">{notes}</p>
                                 </div>
                             </div>
-                        </div>
+                        )}
                     </div>
                 </form>
 

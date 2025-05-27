@@ -3,7 +3,7 @@ import { createContext, ReactNode, useState } from "react";
 
 interface ShowPopupProps {
     title: string;
-    message: string;
+    message?: string;
     type: "error" | "success" | "warning" | "notification";
     actionsPopup?: boolean | false
     action?: () => void

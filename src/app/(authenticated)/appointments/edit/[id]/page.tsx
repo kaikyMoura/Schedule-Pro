@@ -4,7 +4,11 @@ import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import DateInput from "@/components/ui/DateInput";
 import { useLoading } from "@/contexts/LoadingContext/useLoading";
+import { usePopup } from "@/contexts/PopupContext/usePopup";
+import { useNotificationStore } from "@/stores/useNotificationStore";
 import { Appointment } from "@/types/Appointment";
+import { ServiceItem } from "@/types/ServiceItem";
+import { Status } from "@/types/Status";
 import dayjs from "dayjs";
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { useParams, useRouter } from "next/navigation";
@@ -27,14 +31,7 @@ const availableTime = [
     "7:00 PM",
     "8:00 PM"]
 
-interface Service {
-    id: string;
-    type: string;
-    price: number;
-    duration: number;
-}
-
-const availableServices: Service[] = [
+const availableServices: ServiceItem[] = [
     {
         id: "haircut",
         type: "Haircut",
@@ -65,58 +62,74 @@ const availableStaff = [
 const appointments: Appointment[] = [
     {
         id: '9d5cfa4f-1f8b-4721-bd14-cf7fcb6e8bb',
-        type: 'haircut',
-        clientName: 'John Smith',
-        date: '2025-06-01',
+        date: new Date('2025-06-01'),
         time: '10:00 AM - 10:45 AM',
-        staff: 'John Doe',
         notes: 'No notes',
-        status: 'Confirmed',
-        price: '$45.00',
+        status: Status.CONFIRMED,
+        price: 45.00,
+        staffId: 'John Doe',
+        customerId: 'John Smith',
+        serviceId: 'haircut',
     },
     {
         id: '3d3d7d7e-62dc-4429-b749-7756b27eb5d2',
-        type: 'massage',
-        clientName: 'Alice Johnson',
-        date: '2025-06-05',
+        date: new Date('2025-06-05'),
         time: '2:30 PM - 3:15 PM',
-        staff: 'Jane Smith',
         notes: 'Alergic to latex',
-        status: 'Pending',
-        price: '$60.00',
+        status: Status.PENDING,
+        price: 60.00,
+        staffId: 'Jane Smith',
+        customerId: 'Alice Johnson',
+        serviceId: 'massage',
     },
     {
-        id: "49720ec7-9aa0-47ae-a2b5-f503f519e406 ",
-        type: 'consultation',
-        clientName: 'Bob Lee',
-        date: '2025-06-08',
+        id: '49720ec7-9aa0-47ae-a2b5-f503f519e406',
+        date: new Date('2025-06-08'),
         time: '11:00 AM - 12:00 PM',
-        staff: 'Bob Smith',
         notes: 'No notes',
-        status: 'Confirmed',
-        price: '$30.00',
+        status: Status.CONFIRMED,
+        price: 30.00,
+        staffId: 'Bob Smith',
+        customerId: 'Bob Lee',
+        serviceId: 'consultation',
     },
     {
-        id: "e122cbb2-f4f5-4a5c-97ec-d5d53f987a4c ",
-        type: 'haircut',
-        clientName: 'Emily Davis',
-        date: '2025-06-10',
+        id: 'e122cbb2-f4f5-4a5c-97ec-d5d53f987a4c',
+        date: new Date('2025-06-10'),
         time: '1:00 PM - 1:45 PM',
-        staff: 'Any available staff',
         notes: 'No notes',
-        status: 'Cancelled',
-        price: '$40.00',
+        status: Status.CANCELLED,
+        price: 40.00,
+        staffId: 'John Doe',
+        customerId: 'Emily Davis',
+        serviceId: 'haircut',
     },
 ];
 
 const EditAppointment = () => {
+    const { showPopup } = usePopup();
 
+    const handleOpenPopup = () => {
+      showPopup({
+        title: "Update appointment",
+        message: "Are you sure you want to update this customer?",
+        type: "notification",
+        actionsPopup: true,
+        action: handleSubmit,
+      });
+    };
+
+    const { addNotification } = useNotificationStore();
+
+    const handleOpenNotification = () => {
+      addNotification("Appointment updated", "an appointment has been updated", "notification");
+    };
     const { setLoading } = useLoading()
     const router = useRouter()
     const params = useParams();
     const encodedId = params?.id;
 
-    const [selectedService, setSelectedService] = useState<Service>();
+    const [selectedService, setSelectedService] = useState<ServiceItem>();
     const [selectedDate, setSelectedDate] = useState<Date>();
     const [selectedTime, setSelectedTime] = useState<string>("");
     const [selectedStaff, setSelectedStaff] = useState<string>("");
@@ -130,18 +143,18 @@ const EditAppointment = () => {
     const end = start.add(1, 'hour');
 
     const fecthAppointment = useCallback(async () => {
-        if (encodedId) {
-            const decodedId = Buffer.from(decodeURIComponent(encodedId as string), 'base64').toString('utf-8');
-            const appointment = appointments.find((appointment) => appointment.id === decodedId);
-            if (appointment) {
-                setSelectedService(availableServices.find((service) => service.id === appointment.type));
-                console.log(availableServices.find((service) => service.id === appointment.type))
-                setSelectedDate(new Date(appointment.date));
-                setSelectedTime(appointment.time);
-                setSelectedStaff(appointment.staff);
-                setNotes(appointment.notes);
-            }
+        if (!availableServices.length || !encodedId) return;
+        const decodedId = Buffer.from(decodeURIComponent(encodedId as string), 'base64').toString('utf-8');
 
+        const appointment = appointments.find((appointment) => appointment.id === decodedId);
+        console.log(appointment)
+
+        if (appointment) {
+            setSelectedService(availableServices.find((service) => service.id === appointment.serviceId));
+            setSelectedDate(new Date(appointment.date));
+            setSelectedTime(appointment.time);
+            setSelectedStaff(appointment.staffId);
+            setNotes(appointment.notes);
         }
     }, [encodedId]);
 
@@ -161,11 +174,17 @@ const EditAppointment = () => {
             alert("Please fill in all fields");
             return;
         }
+        handleOpenNotification()
 
         setLoading(true)
         await new Promise(resolve => setTimeout(resolve, 1000));
         setLoading(false)
-        alert("Appointment updated successfully");
+        showPopup({
+        title: "Appointment Updated Successfully",
+        type: "success",
+        actionsPopup: true,
+        action: handleSubmit,
+      });
     }
 
     if (!encodedId) {
@@ -193,7 +212,11 @@ const EditAppointment = () => {
                                 <div className="relative">
                                     <select className="block appearance-none cursor-pointer w-full 
                                     bg-(--component-color) border border-gray-200 text-(--primary-text-color) py-2 px-3 pr-8 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                        value={`${selectedService!.type} - ${selectedService!.price} (${selectedService!.duration} min)`} onChange={(e) => handleServiceChange(e.target.value)}>
+                                        defaultValue={
+                                            selectedService
+                                                ? `${selectedService.type} - ${selectedService.price} 
+                                            (${selectedService.duration} min)`
+                                                : ''} onChange={(e) => handleServiceChange(e.target.value)}>
                                         <option disabled>Select a service</option>
                                         {availableServices.map((service) => (
                                             <option key={service.id} value={service.id}>{service.type} - ${service.price} ({service.duration} min)</option>
@@ -234,7 +257,7 @@ const EditAppointment = () => {
                                         defaultValue="Any available staff" onChange={(e) => setSelectedStaff(e.target.value)}>
                                         <option>Any available staff</option>
                                         {availableStaff.map((staff) => (
-                                            <option key={staff} value={staff}>{staff}</option>
+                                            <option key={staff} defaultValue={staff}>{staff}</option>
                                         ))}
                                     </select>
                                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-(--primary-text-color)">
@@ -278,7 +301,7 @@ const EditAppointment = () => {
                 </Card>
                 <div className="flex justify-center gap-4 mt-4 ">
                     <Button type="button" style="secondary" text="cancel" action={() => router.back()} />
-                    <Button type="submit" style="primary" text="create Appointment" action={handleSubmit} />
+                    <Button type="submit" style="primary" text="create Appointment" action={handleOpenPopup} />
                 </div>
             </div >
         )

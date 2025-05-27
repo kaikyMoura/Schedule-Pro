@@ -8,7 +8,7 @@ interface InputProps {
     onClick?: MouseEventHandler<HTMLInputElement>;
     onChange?: ChangeEventHandler<HTMLInputElement>;
     label?: string;
-    value?: string;
+    value?: string | number;
     placeholder: string;
     type: 'text' | 'password' | 'email' | 'number' | 'file' | 'tel';
     maxLength?: number;

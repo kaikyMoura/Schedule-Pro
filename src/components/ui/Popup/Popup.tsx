@@ -5,7 +5,7 @@ import Button from "../Button";
 interface PopupProps {
     type: "error" | "success" | "warning" | "notification",
     title: string,
-    message: string
+    message?: string
     actionsPopup?: boolean | false
     action?: () => void
 }
@@ -17,7 +17,7 @@ const Popup = ({ action, title, message, type, actionsPopup }: PopupProps) => {
         error: "bg-red-100 text-red-700",
         success: "bg-green-100 text-green-700",
         warning: "bg-yellow-100 text-yellow-700",
-        notification: "bg-gray-50 text-blue-700",
+        notification: "bg-gray-50 text-black-700",
     }[type];
 
     useEffect(() => { }, [bgColor])

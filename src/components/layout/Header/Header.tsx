@@ -38,7 +38,7 @@ const Header = () => {
                         </button>
                     </div>
                     <div className="w-px h-8 bg-gray-200"></div>
-                    <div className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-(--secondary-bg) hover:scale-105 rounded-md ${openSelect ? 'bg-(--secondary-bg)' : ''}`}
+                    <div className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-(--background) hover:scale-105 rounded-md ${openSelect ? 'bg-(--secondary-bg)' : ''}`}
                         onClick={() => setOpenSelect(!openSelect)}>
                         <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center p-2">
                             <FaUser className='text-2xl text-blue-500' />

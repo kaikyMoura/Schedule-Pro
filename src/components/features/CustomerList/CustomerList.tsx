@@ -28,8 +28,8 @@ const CustomerList: React.FC<CustomerListProps> = ({ customers, limit, onSelect 
                             />
                         </div>
                         <div>
-                            <h4 className="font-medium text-(--secondary-text-color)">{customer.name}</h4>
-                            <p className="text-sm text-(--tertiary-text-color)">
+                            <h4 className="font-medium text-(--primary-text-color)">{customer.name}</h4>
+                            <p className="text-sm text-(--secondary-text-color)">
                                 {customer.appointmentsCount} appointment{customer.appointmentsCount > 1 ? 's' : ''}
                             </p>
                         </div>

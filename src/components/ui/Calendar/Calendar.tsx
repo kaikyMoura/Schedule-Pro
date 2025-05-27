@@ -4,16 +4,8 @@ import Link from 'next/link';
 import React, { useCallback, useState } from 'react';
 import { FaChevronDown, FaChevronLeft, FaChevronRight, FaPlus } from 'react-icons/fa6';
 import styles from './Calendar.module.scss';
+import { Appointment } from '@/types/Appointment';
 
-interface Appointment {
-    id: string;
-    type: string;
-    clientName: string;
-    date: string;
-    time: string;
-    status: string;
-    price: string;
-}
 
 interface CalendarProps {
     appointments: Appointment[];
@@ -24,8 +16,8 @@ interface CalendarProps {
 const Calendar: React.FC<CalendarProps> = ({ appointments, minDate, maxDate }) => {
     const [visibleMonth, setVisibleMonth] = useState<Dayjs>(dayjs().startOf('month'));
 
-    const getColor = useCallback((status: string) => {
-        switch (status) {
+    const getColor = useCallback((serviceId: string) => {
+        switch (serviceId) {
             case 'haircut':
                 return 'bg-blue-100 text-blue-800';
             case 'massage':
@@ -57,7 +49,7 @@ const Calendar: React.FC<CalendarProps> = ({ appointments, minDate, maxDate }) =
 
     const getAppointmentsForDay = (date: Dayjs) => {
         const dateString = date.format('YYYY-MM-DD');
-        return appointments.filter((a) => a.date === dateString);
+        return appointments.filter((a) => a.date.toString() === dateString);
     };
 
     const renderDays = () => {
@@ -79,8 +71,8 @@ const Calendar: React.FC<CalendarProps> = ({ appointments, minDate, maxDate }) =
                     >
                         <div className="text-right text-sm mb-1 text-(--secondary-text-color)">{date.date()}</div>
                         {!isDisabled && dayAppointments.map((appointment) => (
-                            <div key={appointment.id} className={`text-xs text-blue-800 rounded px-1 py-0.5 truncate ${getColor(appointment.type)}`}>
-                                {appointment.time} - {appointment.type}
+                            <div key={appointment.id} className={`text-xs text-blue-800 rounded px-1 py-0.5 truncate ${getColor(appointment.serviceId)}`}>
+                                {appointment.time} - {appointment.serviceId}
                             </div>
                         ))}
                     </div>
@@ -111,11 +103,11 @@ const Calendar: React.FC<CalendarProps> = ({ appointments, minDate, maxDate }) =
                             <FaPlus className='mr-1' /> New Appointment
                         </Link>
                         <div className="relative">
-                            <select className="appearance-none bg-(--secondary-bg) border border-gray-200 text-(--primary-text-color) py-1 px-3 pr-8 cursor-pointer rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            <select className="appearance-none bg-(--background) border border-gray-200 text-(--primary-text-color) py-1 px-3 pr-8 cursor-pointer rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
                                 defaultValue="Month">
                                 <option>Day</option>
                                 <option>Week</option>
-                                <option selected>Month</option>
+                                <option>Month</option>
                             </select>
                             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-(--primary-text-color)">
                                 <FaChevronDown className="text-(--tertiary-text-color)" />

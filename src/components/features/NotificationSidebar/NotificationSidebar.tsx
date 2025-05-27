@@ -22,7 +22,7 @@ const NotificationSidebar = () => {
     }, [notifications, store]);
 
     return (
-        <div className={`bg-(--secondary-bg) fixed top-15 right-1 h-screen w-80 max-w-full overflow-y-auto rounded-lg shadow-sm p-4 z-50 transition-all duration-300 ease-in-out ${isOpen ? 'translate-x-0 opacity-100 visible' : 'translate-x-full opacity-0 invisible'}`} >
+        <div className={`bg-(--component-color) fixed top-15 right-1 h-screen w-80 max-w-full overflow-y-auto rounded-lg shadow-sm p-4 z-50 transition-all duration-300 ease-in-out ${isOpen ? 'translate-x-0 opacity-100 visible' : 'translate-x-full opacity-0 invisible'}`} >
             <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-medium text-(--primary-text-color)">Notifications</h2>
             </div>

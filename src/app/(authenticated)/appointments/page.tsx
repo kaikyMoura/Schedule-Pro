@@ -5,53 +5,54 @@ import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Modal from "@/components/ui/Modal";
 import { Appointment } from "@/types/Appointment";
+import { Status } from "@/types/Status";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const appointments: Appointment[] = [
     {
         id: '9d5cfa4f-1f8b-4721-bd14-cf7fcb6e8bb',
-        type: 'haircut',
-        clientName: 'John Smith',
-        date: '2025-06-01',
+        date: new Date('2025-06-01'),
         time: '10:00 AM - 10:45 AM',
-        staff: 'John Doe',
         notes: 'No notes',
-        status: 'Confirmed',
-        price: '$45.00',
+        status: Status.CONFIRMED,
+        price: 45.00,
+        staffId: 'John Doe',
+        customerId: 'John Smith',
+        serviceId: 'haircut',
     },
     {
         id: '3d3d7d7e-62dc-4429-b749-7756b27eb5d2',
-        type: 'massage',
-        clientName: 'Alice Johnson',
-        date: '2025-06-05',
+        date: new Date('2025-06-05'),
         time: '2:30 PM - 3:15 PM',
-        staff: 'Jane Smith',
         notes: 'Alergic to latex',
-        status: 'Pending',
-        price: '$60.00',
+        status: Status.PENDING,
+        price: 60.00,
+        staffId: 'Jane Smith',
+        customerId: 'Alice Johnson',
+        serviceId: 'massage',
     },
     {
-        id: "49720ec7-9aa0-47ae-a2b5-f503f519e406 ",
-        type: 'consultation',
-        clientName: 'Bob Lee',
-        date: '2025-06-08',
+        id: '49720ec7-9aa0-47ae-a2b5-f503f519e406',
+        date: new Date('2025-06-08'),
         time: '11:00 AM - 12:00 PM',
-        staff: 'Bob Smith',
         notes: 'No notes',
-        status: 'Confirmed',
-        price: '$30.00',
+        status: Status.CONFIRMED,
+        price: 30.00,
+        staffId: 'Bob Smith',
+        customerId: 'Bob Lee',
+        serviceId: 'consultation',
     },
     {
-        id: "e122cbb2-f4f5-4a5c-97ec-d5d53f987a4c ",
-        type: 'haircut',
-        clientName: 'Emily Davis',
-        date: '2025-06-10',
+        id: 'e122cbb2-f4f5-4a5c-97ec-d5d53f987a4c',
+        date: new Date('2025-06-10'),
         time: '1:00 PM - 1:45 PM',
-        staff: 'John Doe',
         notes: 'No notes',
-        status: 'Cancelled',
-        price: '$40.00',
+        status: Status.CANCELLED,
+        price: 40.00,
+        staffId: 'John Doe',
+        customerId: 'Emily Davis',
+        serviceId: 'haircut',
     },
 ];
 
@@ -93,6 +94,7 @@ const Appointments = () => {
                 <div className="p-5 border-b border-gray-200">
                     <div className="flex items-center justify-between">
                         <h3 className="text-lg font-semibold text-(--primary-text-color)">Appointments</h3>
+                        <Button className="font-normal text-md max-w-46"  type="button" style="primary" text="New Appointment" action={() => router.push('/appointments/new')} />
                     </div>
                 </div>
                 {appointments != undefined ?
