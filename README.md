@@ -65,17 +65,6 @@ Built with **Next.js**, **TypeScript**, **Tailwind CSS**, **Zustand** for state 
 
 <br/>
 
-## 4. Architecture
-
-The project follows a **modular structure** using Next.js built-in routing and clear separation between components, logic, and data.
-
-### 📂 Project Structure
-
-      - page.module.scss
-
-<br/>
-
-
 ### 4. Architecture
 
 The project follows a **modular architecture** with a clear separation of concerns, utilizing Next.js's built-in routing and API capabilities.
