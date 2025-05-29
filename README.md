@@ -1,36 +1,210 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+# 🗓️ Schedule Pro
 
-First, run the development server:
+</div>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+<div align="center">
+
+  Frontend for [Schedule-Pro-API](https://github.com/kaikyMoura/Schedule-Pro-API) — a SaaS web application that implements the user interface and experience layer for appointment scheduling. The system is designed to be highly scalable, user-friendly, and efficient, with a focus on performance, usability, and seamless API integration.
+</div>
+
+<div align="center">
+  
+![GitHub top language](https://img.shields.io/github/languages/top/kaikyMoura/Schedule-Pro)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ce1f958181d743b98107dbc70dfac5ed)](https://app.codacy.com/gh/kaikyMoura/Schedule-Pro/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+![Repository size](https://img.shields.io/github/repo-size/kaikyMoura/Schedule-Pro)
+![Github last commit](https://img.shields.io/github/last-commit/kaikyMoura/Schedule-Pro)
+![License](https://img.shields.io/aur/license/LICENSE)
+![Languages count](https://img.shields.io/github/languages/count/kaikyMoura/Schedule-Pro)
+
+</div>
+
+<br/>
+
+## 1. About the Project
+
+This project is the frontend implementation of **Schedule Pro**, a modern SaaS system for scheduling and managing appointments and services.
+
+Built with **Next.js**, **TypeScript**, **Tailwind CSS**, **Zustand** for state management, and **Zod** for schema validation, this frontend interacts with a dedicated backend responsible for user authentication, availability management, and service bookings.
+
+<br/>
+
+## 2. Key Features
+
+- Modern, responsive UI
+- Authentication with JWT tokens
+- Form validation with Zod
+- Global notifications state management using Zustand
+- Scheduling and service booking
+- Availability display
+- User profile and appointment history
+- Styled with Tailwind CSS
+- Component-based and scalable architecture
+- RESTful API integration
+
+<br/>
+
+## 3. Technologies & Dependencies
+
+<div display="inline-block" gap="6">
+  <img alt="next-logo" width="48" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" />
+  <img alt="typescript-logo" width="48" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" />
+  <img alt="tailwindcss-logo" width="48" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original-wordmark.svg" />
+  <img alt="react-logo" width="48" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" />
+</div>
+
+### Main Dependencies
+
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Zustand](https://github.com/pmndrs/zustand)
+- [Zod](https://zod.dev/)
+
+<br/>
+
+## 4. Architecture
+
+The project follows a **modular structure** using Next.js built-in routing and clear separation between components, logic, and data.
+
+### 📂 Project Structure
+
+      - page.module.scss
+
+<br/>
+
+
+### 4. Architecture
+
+The project follows a **modular architecture** with a clear separation of concerns, utilizing Next.js's built-in routing and API capabilities.
+
+#### 📂 Project Structure:
+- src/
+  - components/ # Reusable UI components
+      - Button/
+        - index.tsx
+        - Button.tsx
+        - Button.module.scss
+          
+  - app/ # Next.js routing system
+    - page.tsx # Landing page
+    - login/
+      - page.tsx # Login page
+      - page.module.scss
+        
+  - hooks/ # Custom React hooks
+
+  - lib/ # Utility functions
+
+  - services/ # API and business logic
+    - index.ts # Axios instance and request handlers
+      
+  - context/ # Global state management
+    
+  - utils/ # Helper functions
+    
+  - types/ # TypeScript interfaces and types
+    - User.ts
+      
+  - styles/ # Global styles
+    - globals.css
+
+<br/>
+  
+### 5. Installation and Setup
+
+### Prerequisites:
+Before running the project, ensure that **Node.js** is installed on your machine. If not, you can download it from the [official Node.js website](https://nodejs.org/en/) (LTS version recommended).
+
+To verify your Node.js installation, run:
+
+```console
+node -v
+npm -v
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### Clone the repository to your local machine:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```console
+git clone https://github.com/kaikyMoura/Schedule-Pro.git
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Navigate to the project's root directory:
 
-## Learn More
+```console
+cd Schedule-Pro
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Installing dependencies:
+Use npm or yarn to install the project dependencies:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```console
+npm install
+# or
+pnpm install
+# or
+yarn install
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### Running the Application:
+Once the dependencies are installed, you can start the development server with:
 
-## Deploy on Vercel
+```console
+npm run dev
+# or
+pnpm run dev
+# or
+yarn dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### The application will be available on:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```console
+http://localhost:3000
+```
+
+<br/>
+
+### 6. 🚀 Deploy
+### Deployment on Vercel with Continuous Integration
+
+The deployment of the project is done on **Vercel**, leveraging **Continuous Integration** for automatic builds and deployments. Any changes pushed to the repository on GitHub are automatically built and deployed to Vercel. 
+
+#### Key Points:
+- The project is automatically built and deployed whenever changes are pushed to the GitHub repository.
+- **Environment Variables** are configured directly in the Vercel dashboard, ensuring seamless integration between build and deployment.
+- **Custom Domain** can be configured for the deployed application, with automatic SSL certificate setup by Vercel.
+  
+The application is accessible via the unique Vercel-generated URL:
+
+```bash
+# Coming soon...
+```
+
+<br/>
+
+### 7. Pages Documentation
+
+|  Page |  Description |
+| --- | --- |
+|  `/signup`	 |  Register new user  |
+|  `/login`  |	Authenticate and get token |
+|  `/`  |  Authenticated user dashboard  |
+|  `/appointmens`  |  View and manage appointments  |
+|  `/customers`  | View and manage customers (**Admin only**)  |
+|  `/services`  |  View and manage (**Admin only**) available services  |
+|  `/profile`  |  User profile and account settings |
+
+> ⚠️ **Important**
+> </br> New routes will be added and documented as development continues.
+
+<br/>
+
+### 8. 📝 Terms of Use
+- **Non-commercial** project.
+- All rights related to user data and privacy are respected.
+- This project aims to serve as a learning and portfolio tool.
+
+👨‍💻 Developed by Kaiky de Moura Tupinambá
