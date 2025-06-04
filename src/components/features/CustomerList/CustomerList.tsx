@@ -1,11 +1,11 @@
 "use client";
-import { Customer } from '@/types/Customer';
+import { User } from '@/types/User';
 import Image from 'next/image';
 import React from 'react';
 
 interface CustomerListProps {
-    customers: Customer[];
-    onSelect?: (customer: Customer) => void;
+    customers: User[];
+    onSelect?: (customer: User) => void;
     limit?: number;
 }
 
@@ -20,7 +20,7 @@ const CustomerList: React.FC<CustomerListProps> = ({ customers, limit, onSelect 
                     <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 rounded-full overflow-hidden">
                             <Image
-                                src={customer.photoUrl}
+                                src={customer.photo ?? "https://randomuser.me/api/portraits/men/1.jpg"}
                                 alt={customer.name}
                                 className="object-cover w-full h-full"
                                 width={40}
@@ -29,9 +29,16 @@ const CustomerList: React.FC<CustomerListProps> = ({ customers, limit, onSelect 
                         </div>
                         <div>
                             <h4 className="font-medium text-(--primary-text-color)">{customer.name}</h4>
-                            <p className="text-sm text-(--secondary-text-color)">
-                                {customer.appointmentsCount} appointment{customer.appointmentsCount > 1 ? 's' : ''}
-                            </p>
+                            {customer.appointments && customer.appointments.length > 0 ? (
+                                <p className="text-sm text-(--secondary-text-color)">
+                                    {customer.appointments?.length} appointment{customer.appointments?.length > 1 ? 's' : ''}
+                                </p>
+                            )
+                                : (
+                                    <p className="text-sm text-(--secondary-text-color)">
+                                        No appointments
+                                    </p>
+                                )}
                         </div>
                     </div>
                 </li>

@@ -10,19 +10,19 @@ import { NotificationSidebarProvider } from './features/NotificationSidebar/cont
 
 export default function ClientProviders({ children }: { children: React.ReactNode }) {
     return (
-        <LoadingProvider>
-            <RouteTransitionProvider>
-                <PopupProvider>
-                    <NotificationSidebarProvider>
-                        <ThemeProvider>
-                            <AuthProvider>
+        <AuthProvider>
+            <LoadingProvider>
+                <RouteTransitionProvider>
+                    <PopupProvider>
+                        <NotificationSidebarProvider>
+                            <ThemeProvider>
                                 {children}
                                 <Tooltip id="my-tooltip" className='z-120 whitespace-pre-line bg-(--secondary-bg) text-(--primary-text-color)' place="right-start" />
-                            </AuthProvider>
-                        </ThemeProvider>
-                    </NotificationSidebarProvider>
-                </PopupProvider>
-            </RouteTransitionProvider>
-        </LoadingProvider>
+                            </ThemeProvider>
+                        </NotificationSidebarProvider>
+                    </PopupProvider>
+                </RouteTransitionProvider>
+            </LoadingProvider>
+        </AuthProvider>
     );
 }

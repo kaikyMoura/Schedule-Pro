@@ -3,7 +3,7 @@ import CustomerList from "@/components/features/CustomerList";
 import Card from "@/components/ui/Card";
 import Modal from "@/components/ui/Modal";
 import SearchInput from "@/components/ui/SearchInput";
-import { Customer } from "@/types/Customer";
+import { Customer } from "@/types/User";
 import Image from "next/image";
 import { useState } from "react";
 

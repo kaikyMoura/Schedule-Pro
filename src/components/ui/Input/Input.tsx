@@ -5,27 +5,92 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 // import styles from './Input.module.css';
 
 interface InputProps {
+    /**
+     * The input onClick event handler.
+     * 
+     * @default undefined
+     */
     onClick?: MouseEventHandler<HTMLInputElement>;
+    /**
+     * The input onChange event handler.
+     * 
+     * @default undefined
+     */
     onChange?: ChangeEventHandler<HTMLInputElement>;
+    /**
+     * The input label.
+     * 
+     * @default ''
+     */
     label?: string;
+    /**
+     * Classes to apply to the input.
+     * 
+     * @default ''
+    */
+    className?: string
+    /**
+     * The input value.
+     * 
+     * @default ''
+     */
     value?: string | number;
+    /**
+     * The input placeholder.
+     * 
+     * @default ''
+     */
     placeholder: string;
+    /**
+     * The input type.
+     * 
+     * @default 'text'
+     * */
     type: 'text' | 'password' | 'email' | 'number' | 'file' | 'tel';
+    /**
+     * The maximum length of the displayed value.
+     * 
+     * @default false
+     */
     maxLength?: number;
+    /**
+     * The accepted input types.
+     * 
+     * @default undefined
+     */
     accept?: string;
+    /**
+     * Indicates if the input is required.
+     * 
+     * @default false
+     */
     required?: boolean;
+    /**
+     * Indicates if the input is in an error state.
+     * 
+     * @default false
+     */
+    error?: boolean;
 }
 
+/**
+ * A controlled input component.
+ *
+ * @param {{ onClick?: MouseEventHandler<HTMLInputElement>; onChange?: ChangeEventHandler<HTMLInputElement>; label?: string; value?: string | number; placeholder: string; type: 'text' | 'password' | 'email' | 'number' | 'file' | 'tel'; maxLength?: number; accept?: string; required?: boolean; error?: boolean; }} props
+ * @returns {JSX.Element}
+ */
 const Input = ({
     onClick,
     onChange,
     label,
+    className,
     value,
     placeholder,
     type,
     maxLength,
     accept,
-    required
+    required,
+    error
 }: InputProps) => {
     const [showPassword, setShowPassword] = useState(false);
 
@@ -51,7 +116,7 @@ const Input = ({
             <div className="relative flex items-center">
                 <input
                     id={label}
-                    className="flex-1 pr-[2.5rem] text-(--primary-text-color) bg-(--component-color) border border-gray-200 py-2 px-3 pr-10 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                    className={`${className} flex-1 pr-[2.5rem] text-(--primary-text-color) bg-(--component-color) border border-gray-200 py-2 px-3 pr-10 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500`}
                     type={inputType}
                     onClick={onClick}
                     placeholder={placeholder}
@@ -67,7 +132,7 @@ const Input = ({
                         type="button"
                         onClick={handleTogglePassword}
                         aria-label="Toggle password visibility"
-                        className="absolute right-[0.5rem] background-none border-none cursor-pointer text-xl"
+                        className={`absolute right-[0.5rem] background-none border-none cursor-pointer text-xl ${error && 'text-red-500 border-red-500'}`}
                     >
                         {renderIcon}
                     </button>

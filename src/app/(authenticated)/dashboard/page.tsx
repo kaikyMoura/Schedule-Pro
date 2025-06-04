@@ -4,81 +4,84 @@ import CustomerList from "@/components/features/CustomerList";
 import Calendar from "@/components/ui/Calendar";
 import Card from "@/components/ui/Card";
 import { Appointment } from "@/types/Appointment";
-import { Customer } from "@/types/Customer";
 import { Status } from "@/types/Status";
+import { User } from "@/types/User";
 import Link from "next/link";
 import { FaUserPlus } from "react-icons/fa";
 import { FaChartPie, FaFileInvoiceDollar, FaPlus } from "react-icons/fa6";
 
-const customers: Customer[] = [
+const customers: User[] = [
   {
     id: '1',
     name: 'John Smith',
     email: 'john@example.com',
-    number: '123-456-7890',
-    lastAppointment: "May 25, 2023 - Haircut",
-    appointmentsCount: 3,
-    photoUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
+    phone: '123-456-7890',
+    photo: 'https://randomuser.me/api/portraits/men/1.jpg',
   },
   {
     id: '2',
     name: 'Sarah Johnson',
     email: 'sarah@example.com',
-    number: '987-654-3210',
-    lastAppointment: "May 27, 2023 - Massage",
-    appointmentsCount: 2,
-    photoUrl: 'https://randomuser.me/api/portraits/women/2.jpg',
+    phone: '987-654-3210',
+    photo: 'https://randomuser.me/api/portraits/women/2.jpg',
   },
   {
     id: '3',
     name: 'Michael Brown',
     email: 'michael@example.com',
-    number: '555-555-5555',
-    lastAppointment: "May 28, 2023 - Massage",
-    appointmentsCount: 5,
-    photoUrl: 'https://randomuser.me/api/portraits/men/3.jpg',
+    phone: '555-555-5555',
+    photo: 'https://randomuser.me/api/portraits/men/3.jpg',
   },
   {
     id: '4',
     name: 'Emily Davis',
     email: 'emily@example.com',
-    number: '111-222-3333',
-    lastAppointment: "May 29, 2023 - Haircut",
-    appointmentsCount: 1,
-    photoUrl: 'https://randomuser.me/api/portraits/women/4.jpg',
+    phone: '111-222-3333',
+    photo: 'https://randomuser.me/api/portraits/women/4.jpg',
+    appointments: [
+      {
+        id: 'e122cbb2-f4f5-4a5c-97ec-d5d53f987a4c',
+        date: new Date('2025-06-10'),
+        time: '1:00 PM - 1:45 PM',
+        notes: 'No notes',
+        status: Status.CANCELLED,
+        price: 40.00,
+        staffId: 'John Doe',
+        customerId: 'Emily Davis',
+        serviceId: 'haircut',
+      },
+    ]
   },
   {
     id: '5',
     name: 'Daniel Lee',
     email: 'daniel@example.com',
-    number: '444-555-6666',
-    lastAppointment: "March 30, 2023 - Massage",
-    appointmentsCount: 4,
-    photoUrl: 'https://randomuser.me/api/portraits/men/5.jpg',
+    phone: '444-555-6666',
+    photo: 'https://randomuser.me/api/portraits/men/5.jpg',
+    appointments: [
+      {
+        id: '9d5cfa4f-1f8b-4721-bd14-cf7fcb6e8bb',
+        date: new Date('2025-06-01'),
+        time: '10:00 AM - 10:45 AM',
+        notes: 'No notes',
+        status: Status.CONFIRMED,
+        price: 45.00,
+        staffId: 'John Doe',
+        customerId: 'John Smith',
+        serviceId: 'haircut',
+      },
+    ]
   },
   {
     id: '6',
     name: 'Olivia Green',
     email: 'olivia@example.com',
-    number: '777-888-9999',
-    lastAppointment: "March 15, 2023 - Haircut",
-    appointmentsCount: 6,
-    photoUrl: 'https://randomuser.me/api/portraits/women/5.jpg',
+    phone: '777-888-9999',
+    photo: 'https://randomuser.me/api/portraits/women/5.jpg',
   },
 ];
 
 const appointments: Appointment[] = [
-  {
-    id: '9d5cfa4f-1f8b-4721-bd14-cf7fcb6e8bb',
-    date: new Date('2025-06-01'),
-    time: '10:00 AM - 10:45 AM',
-    notes: 'No notes',
-    status: Status.CONFIRMED,
-    price: 45.00,
-    staffId: 'John Doe',
-    customerId: 'John Smith',
-    serviceId: 'haircut',
-  },
   {
     id: '3d3d7d7e-62dc-4429-b749-7756b27eb5d2',
     date: new Date('2025-06-05'),
@@ -100,17 +103,6 @@ const appointments: Appointment[] = [
     staffId: 'Bob Smith',
     customerId: 'Bob Lee',
     serviceId: 'consultation',
-  },
-  {
-    id: 'e122cbb2-f4f5-4a5c-97ec-d5d53f987a4c',
-    date: new Date('2025-06-10'),
-    time: '1:00 PM - 1:45 PM',
-    notes: 'No notes',
-    status: Status.CANCELLED,
-    price: 40.00,
-    staffId: 'John Doe',
-    customerId: 'Emily Davis',
-    serviceId: 'haircut',
   },
 ];
 

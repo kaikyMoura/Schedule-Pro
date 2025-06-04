@@ -39,7 +39,7 @@ interface CheckboxProps {
           >
             {checked && (
               <svg
-                className="w-3 h-3 text-white"
+                className="w-5 h-5 text-white"
                 viewBox="0 0 20 20"
                 fill="none"
                 stroke="currentColor"
@@ -50,7 +50,7 @@ interface CheckboxProps {
             )}
           </div>
         </div>
-        <span>{label}</span>
+        <span className="text-(--primary-text-color)">{label}</span>
       </label>
     );
   };

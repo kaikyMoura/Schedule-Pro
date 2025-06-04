@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { FaBell, FaCog } from 'react-icons/fa';
 import { FaChevronDown, FaUser } from 'react-icons/fa6';
-import { MdLogout } from "react-icons/md";
+import { MdLogout } from 'react-icons/md';
 
 const Header = () => {
     const { openOrCloseSidebar } = useNotificationSidebar()
@@ -61,10 +61,12 @@ const Header = () => {
                                 <p>Settings</p>
                             </Link>
                             <Link href="/profile" className="block flex items-center justify-start px-4 py-2 text-sm text-(--primary-text-color) hover:bg-blue-100">
-                                <div className="rounded-full flex items-center p-2">
-                                    <MdLogout className='text-lg' />
+                                <div className='flex items-center gap-1'>
+                                    <div className="rounded-full flex items-center p-2">
+                                        <MdLogout className='text-lg' />
+                                    </div>
+                                    Sign out
                                 </div>
-                                <p>Logout</p>
                             </Link>
                         </div>
                     }

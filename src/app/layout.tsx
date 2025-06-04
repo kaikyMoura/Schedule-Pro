@@ -2,7 +2,7 @@ import ClientProviders from "@/components/ClientProviders";
 import { Metadata } from "next";
 import '../styles/globals.css';
 
-import type { Viewport } from 'next'
+import type { Viewport } from 'next';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://schedulepro.app'),
