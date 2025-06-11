@@ -1,18 +1,36 @@
 "use client";
+import OTPInput from "@/components/features/OTPInput";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
-import Input from "@/components/ui/Input";
+import { Input } from "@/components/ui/Input";
+import Loader from "@/components/ui/Loader";
+import { createUserSchema } from "@/schemas/create-user.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { FaArrowLeft, FaPhone } from "react-icons/fa6";
+import z from "zod";
 
-const CompleteProfilePage = () => {
+const CompleteProfile = () => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<z.infer<typeof createUserSchema>>({
+        resolver: zodResolver(createUserSchema),
+    });
+
+    const [countdown, setCountdown] = useState(60);
+    const [isCounting, setIsCounting] = useState(true)
+
     const [page, setPage] = useState(1);
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
     const [userData, setUserData] = useState<{
         name?: string | null;
         email?: string | null;
         image?: string | null;
+        phone?: string | null;
     }>({});
 
     useEffect(() => {
@@ -21,7 +39,24 @@ const CompleteProfilePage = () => {
         }
     }, [session]);
 
-    if (!userData) return <p>Carregando...</p>;
+    useEffect(() => {
+        if (isCounting && countdown > 0) {
+            const timerId = setTimeout(() => {
+                setCountdown(countdown - 1);
+            }, 1000);
+
+            return () => clearTimeout(timerId);
+        } else if (countdown === 0) {
+            setIsCounting(false);
+        }
+    }, [countdown, isCounting]);
+
+    const handleResendClick = () => {
+        setIsCounting(true);
+        setCountdown(60);
+    };
+
+    if (!session) return <Loader />;
 
     const handlePageChange = (page: number) => {
         console.log(page)
@@ -41,9 +76,10 @@ const CompleteProfilePage = () => {
                                     <div className="absolute inset-y-12 right-2 pl-3 flex items-center pointer-events-none">
                                         <FaPhone className="text-(--primary-text-color) w-4 h-4 z-10" />
                                     </div>
-                                    <Input type="tel" label="Phone number" placeholder="+1 111-222-333" />
+                                    <Input type="tel" label="Phone number" placeholder="+1 111-222-333"
+                                        {...register("phone")} autoComplete="tel" />
                                 </div>
-                                <Button className="mt-4" type="button" text={"Next"} style={"primary"} action={() => handlePageChange(page + 1)} />
+                                <Button type="button" text={"Next"} buttonStyle={"primary"} onClick={() => handlePageChange(page + 1)} disabled={userData?.phone?.length !== undefined && userData?.phone?.length > 10} />
                             </div>
                         </Card>
                         :
@@ -59,13 +95,15 @@ const CompleteProfilePage = () => {
                                     <h2 className="text-2xl font-semibold text-(--primary-text-color) text-center">Enter the code</h2>
                                     <p className="text-(--primary-text-color) text-sm">We have sent a code to your phone number</p>
                                     <div className="relative flex gap-2">
-                                        <Input className="max-w-[50px]" type="text" placeholder="" maxLength={1} />
-                                        <Input className="max-w-[50px]" type="text" placeholder="" maxLength={1} />
-                                        <Input className="max-w-[50px]" type="text" placeholder="" maxLength={1} />
-                                        <Input className="max-w-[50px]" type="text" placeholder="" maxLength={1} />
-                                        <Input className="max-w-[50px]" type="text" placeholder="" maxLength={1} />
+                                        <OTPInput onChange={() => { }} />
                                     </div>
-                                    <Button className="mt-4" type="button" text={"Submit"} style={"primary"} action={() => handlePageChange(page + 1)} />
+                                    <button type="button"
+                                        onClick={handleResendClick}
+                                        disabled={isCounting}
+                                        className="text-sm font-medium text-start text-blue-600 hover:text-blue-700">
+                                        {isCounting ? `Resend code ${countdown}s` : 'Resend code'}
+                                    </button>
+                                    <Button type="button" text={"Submit"} buttonStyle={"primary"} onClick={() => handlePageChange(page + 1)} />
                                 </div>
                             </Card>
                         </div>
@@ -76,4 +114,4 @@ const CompleteProfilePage = () => {
     )
 };
 
-export default CompleteProfilePage;
+export default CompleteProfile;

@@ -1,15 +1,20 @@
 "use client"
 
+import CountrySelect from "@/components/features/ContrySelect"
+import SocialSignInButton from "@/components/features/SocialSignInButton"
+import { AppleIcon } from "@/components/icons/AppleICon"
+import { GoogleIcon } from "@/components/icons/GoogleIcon"
 import Button from "@/components/ui/Button"
 import Checkbox from "@/components/ui/Checkbox"
-import Input from "@/components/ui/Input"
+import { Input } from "@/components/ui/Input"
+import { countries } from "@/config/countries"
 import { usePopup } from "@/contexts/PopupContext/usePopup"
 import { CreateUserSchema, createUserSchema } from "@/schemas/create-user.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
-import { useForm } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
 import { FaCalendarAlt, FaEnvelope, FaPhone, FaUserCircle } from "react-icons/fa"
 import { FaX } from "react-icons/fa6"
 import { z } from "zod"
@@ -19,6 +24,7 @@ const Signup = () => {
     const {
         register,
         handleSubmit,
+        control,
         formState: { errors },
     } = useForm<z.infer<typeof createUserSchema>>({
         resolver: zodResolver(createUserSchema),
@@ -63,6 +69,7 @@ const Signup = () => {
     }
 
     const onSubmit = (data: CreateUserSchema) => {
+        console.log("data", data)
         if (data.name === "" || data.email === "" || data.confirmEmail === "" || data.password === "" || data.confirmPassword === "" || data.phone === "") {
             showPopup({
                 title: "Error",
@@ -72,7 +79,6 @@ const Signup = () => {
             });
             return;
         }
-        console.log()
 
         const payload: CreateUserSchema = {
             name: data.name,
@@ -86,13 +92,17 @@ const Signup = () => {
 
         console.log('payload', payload)
 
-        alert("Submitted")
+        alert(payload)
     }
 
     const handleClearImage = () => {
         setTempImage("")
         setImage(null)
     }
+
+    const onInvalid = (validationErrors: unknown) => {
+        console.log("THE VALIDATION FAILED! Errors:", validationErrors);
+    };
 
     return (
         <div className="mt-4 w-full max-w-md mx-auto flex flex-col justify-center">
@@ -107,7 +117,7 @@ const Signup = () => {
             <div className="bg-(--component-color) rounded-xl shadow-lg overflow-hidden border border-gray-200">
                 <div className="p-8">
                     <h2 className="text-2xl font-semibold text-(--primary-text-color) mb-6 text-center">Create an account</h2>
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={handleSubmit(onSubmit, onInvalid)}>
                         <div className="mb-5">
                             <div className="flex items-center justify-center">
                                 {tempImage ?
@@ -119,7 +129,7 @@ const Signup = () => {
                         </div>
 
                         <div className="mb-5">
-                            <div className="relative">
+                            <div className="relative ">
                                 <button type="button" className="absolute inset-y-12 right-0 pl-3 flex items-center cursor-pointer"
                                     onClick={handleClearImage}>
                                     <FaX className="text-(--primary-text-color) w-4 h-4 z-10" />
@@ -133,8 +143,7 @@ const Signup = () => {
                             <div className="relative">
                                 <Input type="text" label="Name" placeholder="firstname lastname"
                                     {...register('name', { required: "Name is required" })}
-                                    error={errors.name ? true : false} />
-                                {errors.email && <span>{errors.email.message}</span>}
+                                    error={errors.name} />
                             </div>
                         </div>
 
@@ -144,8 +153,8 @@ const Signup = () => {
                                     <FaEnvelope className="text-(--primary-text-color) w-4 h-4 z-10" />
                                 </div>
                                 <Input type="email" label="Email address" placeholder="you@example.com"
-                                    {...register('email', { required: "Email is required" })} error={errors.email ? true : false} />
-                                {errors.email && <span>{errors.email.message}</span>}
+                                    {...register('email', { required: "Email is required" })} error={errors.email} />
+
                             </div>
                         </div>
 
@@ -156,8 +165,7 @@ const Signup = () => {
                                 </div>
                                 <Input type="email" label="Confirm email" placeholder="confirm your email address"
                                     {...register('confirmEmail', { required: "Confirm email is required" })}
-                                    error={errors.confirmEmail ? true : false} />
-                                {errors.email && <span>{errors.confirmEmail!.message}</span>}
+                                    error={errors.confirmEmail} />
                             </div>
                         </div>
 
@@ -166,10 +174,24 @@ const Signup = () => {
                                 <div className="absolute inset-y-12 right-2 pl-3 flex items-center pointer-events-none">
                                     <FaPhone className="text-(--primary-text-color) w-4 h-4 z-10" />
                                 </div>
-                                <Input type="tel" label="Phone number" placeholder="+1 111-222-333"
-                                    {...register('phone', { required: "Phone number is required" })}
-                                    error={errors.phone ? true : false} />
-                                {errors.email && <span>{errors.phone!.message}</span>}
+                                <div className="flex items-center gap-2">
+                                    <Controller
+                                        name="country"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <CountrySelect
+                                                className="relative inset-y-3.5"
+                                                options={countries}
+                                                value={field.value ?? countries[0].value}
+                                                onChange={field.onChange}
+                                            />
+                                        )}
+                                    />
+                                    {errors.country && <p className="text-red-600">{errors.country.message}</p>}
+                                    <Input type="tel" label="Phone number" placeholder="+1 111-222-333"
+                                        {...register('phone', { required: "Phone number is required" })}
+                                        error={errors.phone} />
+                                </div>
                             </div>
                         </div>
 
@@ -177,8 +199,7 @@ const Signup = () => {
                             <div className="relative">
                                 <Input type="password" label="Password" placeholder="••••••••"
                                     {...register('password', { required: "Password is required" })}
-                                    error={errors.password ? true : false} />
-                                {errors.email && <span>{errors.password!.message}</span>}
+                                    error={errors.password} />
                             </div>
                         </div>
 
@@ -186,8 +207,7 @@ const Signup = () => {
                             <div className="relative">
                                 <Input type="password" label="Confirm password" placeholder="••••••••"
                                     {...register('confirmPassword', { required: "Confirm password is required" })}
-                                    error={errors.confirmPassword ? true : false} />
-                                {errors.email && <span>{errors.confirmPassword!.message}</span>}
+                                    error={errors.confirmPassword} />
                             </div>
                         </div>
 
@@ -195,7 +215,7 @@ const Signup = () => {
                             <Checkbox id="terms" label={"I agree to the terms and conditions"} checked={checked} onChange={() => setChecked(!checked)} />
                         </div>
 
-                        <Button type="submit" text={"Sign up"} style={"primary"} />
+                        <Button type="submit" text={"Sign up"} buttonStyle={"primary"} disabled={!checked} />
                     </form>
                     <div className="mt-6">
                         <div className="relative">
@@ -206,6 +226,15 @@ const Signup = () => {
                                 <span className="px-2 bg-(--component-color) text-(--secondary-text-color)">Or continue with</span>
                             </div>
                         </div>
+
+                        <div className="mt-6 grid grid-cols-2 gap-3">
+                            <SocialSignInButton icon={<GoogleIcon />} provider="google" callbackUrl="/dashboard">
+                                <p>Google</p>
+                            </SocialSignInButton>
+                            <SocialSignInButton icon={<AppleIcon />} provider="apple" callbackUrl="/dashboard">
+                                <p>Apple</p>
+                            </SocialSignInButton>
+                        </div>
                     </div>
                 </div>
                 <div className="bg-(--secondary-bg) px-8 py-4 border-t border-gray-200">
@@ -214,7 +243,7 @@ const Signup = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

@@ -3,6 +3,17 @@ import { NotificationItem } from '@/types/NotificationItem';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 
+/**
+ * Schedules a function to be called at a given interval, with the interval
+ * determined by the age of the notifications in the given array. The
+ * interval will be 5s if any notifications are less than a minute old, 15s
+ * if any are between 1 and 5 minutes old, 30s if any are between 5 and 60
+ * minutes old, and 120s if all are older than 60 minutes. When the
+ * function is called, all expired notifications in the array are removed
+ * from the store.
+ *
+ * @param notifications - The array of notifications
+ */
 export function useTimeRerender(notifications: NotificationItem[]) {
     const [, setTick] = useState(0);
     const removeNotification = useNotificationStore(state => state.removeNotification);

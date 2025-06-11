@@ -1,23 +1,57 @@
 "use client"
 
+import SocialSignInButton from "@/components/features/SocialSignInButton"
+import { AppleIcon } from "@/components/icons/AppleICon"
+import { GoogleIcon } from "@/components/icons/GoogleIcon"
 import Button from "@/components/ui/Button"
 import Checkbox from "@/components/ui/Checkbox"
-import Input from "@/components/ui/Input"
+import { Input } from "@/components/ui/Input"
+import { usePopup } from "@/contexts/PopupContext/usePopup"
+import { loginUserSchema, LoginUserSchema } from "@/schemas/login-user.schema"
+import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
 import { useState } from "react"
+import { useForm } from "react-hook-form"
 import { FaCalendarAlt, FaEnvelope } from "react-icons/fa"
-import { FaApple, FaGoogle } from "react-icons/fa6"
-import { signIn } from "next-auth/react";
+import z from "zod"
 
 const Login = () => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<z.infer<typeof loginUserSchema>>({
+        resolver: zodResolver(loginUserSchema),
+    });
+
+    const { showPopup } = usePopup();
+
     const [checked, setChecked] = useState(false)
 
-    const signInWith = async (provider: string, callbackUrl: string) => {
-        try {
-            await signIn(provider, { callbackUrl: callbackUrl });
-        } catch (err) {
-            console.error("Unexpected error", err);
+    const onSubmit = (data: LoginUserSchema) => {
+        console.log("data", data)
+        if (data.email === "" || data.password === "") {
+            showPopup({
+                title: "Error",
+                message: "Missing required fields",
+                type: "error",
+                actionsPopup: false,
+            });
+            return;
         }
+
+        const payload: LoginUserSchema = {
+            email: data.email,
+            password: data.password,
+        }
+
+        console.log('payload', payload)
+
+        alert("payload")
+    }
+
+    const onInvalid = (validationErrors: unknown) => {
+        console.log("THE VALIDATION FAILED! Errors:", validationErrors);
     };
 
     return (
@@ -33,19 +67,23 @@ const Login = () => {
             <div className="bg-(--component-color) rounded-xl shadow-lg overflow-hidden border border-gray-200">
                 <div className="p-8">
                     <h2 className="text-2xl font-semibold text-(--primary-text-color) mb-6 text-center">Sign in to your account</h2>
-                    <form>
+                    <form onSubmit={handleSubmit(onSubmit, onInvalid)}>
                         <div className="mb-5">
                             <div className="relative">
                                 <div className="absolute inset-y-12 right-2 pl-3 flex items-center pointer-events-none">
                                     <FaEnvelope className="text-(--primary-text-color) w-5 h-5 z-10" />
                                 </div>
-                                <Input type="email" label="Email address" placeholder="you@example.com" />
+                                <Input type="email" label="Email address" placeholder="you@example.com"
+                                    {...register('email')}
+                                    error={errors.email} />
                             </div>
                         </div>
 
                         <div className="mb-5">
                             <div className="relative">
-                                <Input type="password" label="Password" placeholder="••••••••" />
+                                <Input type="password" label="Password" placeholder="••••••••"
+                                    {...register('password')}
+                                    error={errors.password} />
                                 <Link href="#" className="text-sm font-medium text-blue-600 hover:text-blue-500">Forgot password?</Link>
                             </div>
                         </div>
@@ -54,7 +92,7 @@ const Login = () => {
                             <Checkbox id="remember-me" label={"Remember me"} checked={checked} onChange={() => setChecked(!checked)} />
                         </div>
 
-                        <Button type="submit" text={"Sign in"} style={"primary"} />
+                        <Button type="submit" text={"Sign up"} buttonStyle={"primary"} disabled={!checked} />
                     </form>
 
                     <div className="mt-6">
@@ -68,23 +106,18 @@ const Login = () => {
                         </div>
 
                         <div className="mt-6 grid grid-cols-2 gap-3">
-                            <button type="button"
-                                className="w-full inline-flex justify-center items-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-(--secondary-bg) text-md font-medium text-(--primary-text-color) hover:bg-gray-50 hover:text-(--tertiary-text-color) transition-all duration-150"
-                                onClick={() => signInWith('google', '/dashboard')}>
-                                <FaGoogle className="mr-2 text-red-500" />
+                            <SocialSignInButton icon={<GoogleIcon />} provider="google" callbackUrl="/dashboard">
                                 <p>Google</p>
-                            </button>
-                            <button type="button" className="w-full inline-flex justify-center items-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-(--secondary-bg) text-md font-medium text-(--primary-text-color) hover:bg-gray-50 hover:text-(--tertiary-text-color) transition-all duration-150"
-                                onClick={() => signInWith('apple', '/dashboard')}>
-                                <FaApple className="mr-2" />
+                            </SocialSignInButton>
+                            <SocialSignInButton icon={<AppleIcon />} provider="apple" callbackUrl="/dashboard">
                                 <p>Apple</p>
-                            </button>
+                            </SocialSignInButton>
                         </div>
                     </div>
                 </div>
                 <div className="bg-(--secondary-bg) px-8 py-4 border-t border-gray-200">
                     <div className="text-center text-sm text-(--secondary-text-color)">
-                        Don&apos;t have an account? <Link href="/signup" className="font-medium text-blue-600 hover:text-blue-500">Sign up</Link>
+                        Don&apos;t have an account? <Link href="/sign-up" className="font-medium text-blue-600 hover:text-blue-500">Sign up</Link>
                     </div>
                 </div>
             </div>

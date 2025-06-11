@@ -2,7 +2,7 @@
 
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
-import Input from "@/components/ui/Input";
+import { Input } from "@/components/ui/Input";
 import { useLoading } from "@/contexts/LoadingContext/useLoading";
 import { usePopup } from "@/contexts/PopupContext/usePopup";
 import { useNotificationStore } from "@/stores/useNotificationStore";
@@ -90,7 +90,7 @@ const NewService = () => {
             <div className="fixed inset-0 flex flex-col items-center justify-center text-(--primary-text-color)">
                 <h1 className="text-3xl font-bold">Unauthorized</h1>
                 <p className="mt-4">You are not authorized to access this page</p>
-                <Button style="primary" className='mt-4 p-4 max-w-36 h-10'>
+                <Button buttonStyle="primary" className='mt-4 p-4 max-w-36 h-10'>
                     <Link href="/">Back to Home</Link>
                 </Button>
             </div>
@@ -163,8 +163,8 @@ const NewService = () => {
                     </form>
                 </Card>
                 <div className="flex justify-between gap-4 mt-4">
-                    <Button type="button" style="secondary" text="cancel" action={() => router.back()} width={450} />
-                    <Button type="submit" style="primary" text="create service" action={handleOpenPopup} width={450} />
+                    <Button type="button" buttonStyle="secondary" text="cancel" onClick={() => router.back()} width={450} />
+                    <Button type="submit" buttonStyle="primary" text="create service" onClick={handleOpenPopup} width={450} />
                 </div>
             </div>
         )

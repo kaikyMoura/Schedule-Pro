@@ -13,9 +13,37 @@ export const createUserSchema = z
             .regex(/[0-9]/, "Must contain at least one number")
             .regex(/[^a-zA-Z0-9]/, "Must contain at least one special character"),
         confirmPassword: z.string().min(8, "The password must have at least 8 characters"),
-        phone: z.string().min(6, "Invalid phone number").regex(/^\(\d{2}\) \d{4,5}-\d{4}$/, "Phone number is invalid"),
+        country: z.enum(["US", "BR"], { required_error: "Select a country" }).default("BR").nullable().optional(),
+        phone: z.string().min(1, "Invalid phone number"),
         photo: z.string().optional().nullable(),
     })
+    // .superRefine((data, ctx) => {
+    //     const { country, phone } = data;
+
+    //     const digits = phone.replace(/\D/g, '');
+
+    //     switch (country) {
+    //         case 'US':
+    //             if (digits.length !== 10) {
+    //                 ctx.addIssue({
+    //                     code: z.ZodIssueCode.custom,
+    //                     message: "The phone number must have 10 digits.",
+    //                     path: ['phone']
+    //                 });
+    //             }
+    //             break;
+
+    //         case 'BR':
+    //             if (digits.length !== 10 && digits.length !== 11) {
+    //                 ctx.addIssue({
+    //                     code: z.ZodIssueCode.custom,
+    //                     message: "The phone number must have 10 or 11 digits. (DDD + number)",
+    //                     path: ['phone']
+    //                 });
+    //             }
+    //             break;
+    //     }
+    // })
     .refine((data) => data.email === data.confirmEmail, {
         message: "The email and confirm email must be the same",
         path: ["confirmEmail"],

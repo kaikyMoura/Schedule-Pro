@@ -1,49 +1,98 @@
 import React, { JSX } from "react";
 import styles from "./Button.module.scss";
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    /**
+     * The content of the button.
+     * 
+     * e.g. `<Button>Content</Button>`
+     * 
+     * @type {JSX.Element | string}
+     * 
+     * @default undefined
+     */
     children?: React.ReactNode;
-    style: 'primary' | 'secondary' | { type: 'custom'; backgroundColor: string; color: string };
-    type?: 'button' | 'submit' | 'reset';
+    /**
+     * The style of the button.
+     * 
+     * @type {'primary' | 'secondary' | {type: 'custom', backgroundColor: string, color: string}}
+     * 
+     * @default 'primary'
+     * 
+     * */
+    buttonStyle: 'primary' | 'secondary' | { type: 'custom'; backgroundColor: string; color: string };
+    /** 
+     * The width of the button.
+     * 
+     * @type {number}
+     * 
+     * @default undefined
+     * 
+     * */
     width?: number;
+    /** 
+     * The height of the button.
+     * 
+     * @type {number}
+     * 
+     * @default undefined
+     * 
+     * */
     height?: number;
+    /**
+     * The text of the button.
+     * 
+     * @type {string}
+     * 
+     * @default undefined
+     * 
+     * */
     text?: string;
-    className?: string;
-    action?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-    disabled?: boolean;
+    /**
+     * The icon of the button.
+     * 
+     * @type {JSX.Element}
+     * 
+     * @default undefined
+     * 
+     * */
     icon?: JSX.Element;
 }
 
-const Button: React.FC<ButtonProps> = ({
+/**
+ * A customizable button component.
+ * @param {ButtonProps} props
+ * @prop {JSX.Element | string} [children] - The content of the button.
+ * @prop {'primary' | 'secondary' | {type: 'custom', backgroundColor: string, color: string}} [buttonStyle] - The style of the button.
+ * @prop {number} [width] - The width of the button.
+ * @prop {number} [height] - The height of the button.
+ * @prop {string} [text] - The text of the button.
+ * @prop {JSX.Element} [icon] - The icon of the button.
+ * @prop {React.ButtonHTMLAttributes<HTMLButtonElement>} [rest] - All other props will be transferred to the button element.
+ * @returns {JSX.Element} The button component.
+ */
+const Button = ({
     children,
-    style,
-    type = 'button',
+    buttonStyle,
     width,
     height,
     text,
-    className = '',
-    action,
-    disabled = false,
     icon,
-}) => {
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-        if (action) action(event);
-    };
-
-    const isCustom = typeof style === 'object' && style.type === 'custom';
+    ...rest
+}: ButtonProps) => {
+    const isCustom = typeof buttonStyle === 'object' && buttonStyle.type === 'custom';
 
     const getStyleClass = () => {
         if (isCustom) return '';
-        if (style === 'primary') return styles.primary;
-        if (style === 'secondary') return styles.secondary;
+        if (buttonStyle === 'primary') return styles.primary;
+        if (buttonStyle === 'secondary') return styles.secondary;
         return '';
     };
 
     const customStyle = isCustom
         ? {
-            backgroundColor: style.backgroundColor,
-            color: style.color,
+            backgroundColor: buttonStyle.backgroundColor,
+            color: buttonStyle.color,
         }
         : {};
 
@@ -52,11 +101,14 @@ const Button: React.FC<ButtonProps> = ({
 
     return (
         <button
-            type={type}
-            className={`${styles.custom_button} ${defaultBaseClass} ${getStyleClass()} ${className} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
-            onClick={handleClick}
-            disabled={disabled}
+            type={rest.type}
+            className={`${styles.custom_button} ${defaultBaseClass} 
+            ${getStyleClass()} ${rest.className} py-2 px-4 border border-transparent rounded-md shadow-sm text-md font-medium ${rest.disabled ? 'opacity-50 cursor-not-allowed' : ''}
+            ${rest.disabled ? 'pointer-events-none' : ''}`}
+            onClick={rest.onClick}
+            disabled={rest.disabled}
             style={{ width, height, ...customStyle }}
+            {...rest}
         >
             {text || icon ? (
                 <div className="flex items-center gap-2">
