@@ -1,6 +1,6 @@
 import { usePopup } from "@/contexts/PopupContext/usePopup";
 import { useEffect } from "react";
-import Button from "../Button";
+import { Button } from "@/components/ui/button";
 
 interface PopupProps {
     type: "error" | "success" | "warning" | "notification",
@@ -34,8 +34,8 @@ const Popup = ({ action, title, message, type, actionsPopup }: PopupProps) => {
             </p>
             {actionsPopup && (
                 <div className="flex gap-4">
-                    <Button className={`font-normal text-md`} style="secondary" text="decline" type="button" action={close} />
-                    <Button className={`font-normal text-md`} style="primary" text="accept" type="button" action={action} />
+                    <Button className={`font-normal text-md`} variant={"secondary"} type="button" onClick={close}>Close</Button>
+                    <Button className={`font-normal text-md`} variant={"default"} type="button" onClick={action}>Action</Button>
                 </div>
             )}
         </div>

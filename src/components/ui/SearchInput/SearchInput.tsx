@@ -2,10 +2,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { SetStateAction, useEffect, useState } from 'react';
-import { FaSearch } from 'react-icons/fa';
-import Input from '../Input';
 import styles from './SearchInput.module.scss';
-import { FaX } from 'react-icons/fa6';
+import { Input } from '../Input';
+import { Search, X } from 'lucide-react';
+import { Label } from '../label';
 
 interface SearchBarProps<T extends object> {
     placeholder: string;
@@ -53,14 +53,15 @@ const SearchBar = <T extends object>({
         <div className=''>
             <div className='relative'>
                 <div className="relative">
-                    <Input type="text" label={label} placeholder={placeholder} value={query} onChange={(e: { target: { value: SetStateAction<string>; }; }) => setQuery(e.target.value)} />
+                    <Label>{label}</Label>
+                    <Input type="text" placeholder={placeholder} value={query} onChange={(e: { target: { value: SetStateAction<string>; }; }) => setQuery(e.target.value)} />
                     {query &&
                         <div className="absolute inset-y-12 right-12 flex items-center cursor-pointer" onClick={clearInput}>
-                            <FaX className="text-gray-400" />
+                            <X className="text-gray-400" />
                         </div>
                     }
                     <div className="absolute inset-y-12 right-2 flex items-center pointer-events-none">
-                        <FaSearch className="text-gray-400" />
+                        <Search className="text-gray-400" />
                     </div>
                 </div>
 

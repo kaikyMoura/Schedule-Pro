@@ -6,7 +6,7 @@ export type User = {
     name: string;
     email: string;
     password?: string;
-    phone?: string;
+    phone: string;
     photo?: string;
     role?: Role;
 

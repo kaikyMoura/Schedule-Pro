@@ -1,11 +1,11 @@
 "use client";
 import { useEffect } from "react";
 import { useNotificationSidebar } from "./hook";
-import { FaCalendarPlus } from "react-icons/fa6";
 import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';
 import { useTimeRerender } from "@/hooks/useTimeRerender";
 import { useNotificationStore } from "@/stores/useNotificationStore";
+import { CalendarPlus } from "lucide-react";
 
 dayjs.extend(relativeTime);
 
@@ -31,7 +31,7 @@ const NotificationSidebar = () => {
                     <li key={notification.id} className="flex bg-(--component-color) rounded-md p-4 hover:bg-blue-200 cursor-pointer transition delay-100 duration-300 ease-in-out hover:-translate-y-1 shadow">
                         <div className="flex-shrink-0">
                             <div className="p-2 rounded-md bg-blue-100 text-blue-600">
-                                <FaCalendarPlus />
+                                <CalendarPlus />
                             </div>
                         </div>
                         <div className="ml-3">
@@ -46,4 +46,4 @@ const NotificationSidebar = () => {
     )
 }
 
-export default NotificationSidebar
+export default NotificationSidebar;

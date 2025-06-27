@@ -10,7 +10,7 @@ export const authOptions = {
   ],
   callbacks: {
     async redirect({ url, baseUrl }) {
-      return `${baseUrl}/complete-profile`;
+      return `${baseUrl}/auth/callback`;
     },
     async session({ session, token }) {
       return session;

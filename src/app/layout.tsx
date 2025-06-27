@@ -1,8 +1,11 @@
-import ClientProviders from "@/components/ClientProviders";
+import Providers from "@/components/providers";
+import type { Viewport } from 'next';
 import { Metadata } from "next";
+import { Inter } from "next/font/google";
 import '../styles/globals.css';
 
-import type { Viewport } from 'next';
+const inter = Inter({ subsets: ["latin"] })
+
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://schedulepro.app'),
@@ -36,14 +39,16 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
       </head>
-      <body>
-        <ClientProviders>
-          {children}
-        </ClientProviders>
+      <body className={inter.className}>
+        <Providers>
+          <main>
+            {children}
+          </main>
+        </Providers>
       </body>
     </html>
   );

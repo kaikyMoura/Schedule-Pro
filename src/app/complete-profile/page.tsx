@@ -1,18 +1,19 @@
 "use client";
 import OTPInput from "@/components/features/OTPInput";
-import Button from "@/components/ui/Button";
-import Card from "@/components/ui/Card";
-import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/Card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import Loader from "@/components/ui/Loader";
 import { createUserSchema } from "@/schemas/create-user.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowLeft, Phone } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { FaArrowLeft, FaPhone } from "react-icons/fa6";
 import z from "zod";
 
-const CompleteProfile = () => {
+const CompleteProfilePage = () => {
     const {
         register,
         handleSubmit,
@@ -74,12 +75,15 @@ const CompleteProfile = () => {
                                 <h2 className="text-2xl font-semibold text-(--primary-text-color) mb-6 text-center">Complete your profile</h2>
                                 <div className="relative">
                                     <div className="absolute inset-y-12 right-2 pl-3 flex items-center pointer-events-none">
-                                        <FaPhone className="text-(--primary-text-color) w-4 h-4 z-10" />
+                                        <Phone className="text-(--primary-text-color) w-4 h-4 z-10" />
                                     </div>
-                                    <Input type="tel" label="Phone number" placeholder="+1 111-222-333"
+                                    <Label className="sr-only">Phone</Label>
+                                    <Input type="tel" placeholder="+1 111-222-333"
                                         {...register("phone")} autoComplete="tel" />
                                 </div>
-                                <Button type="button" text={"Next"} buttonStyle={"primary"} onClick={() => handlePageChange(page + 1)} disabled={userData?.phone?.length !== undefined && userData?.phone?.length > 10} />
+                                <Button type="button" variant={"default"} onClick={() => handlePageChange(page + 1)} disabled={userData?.phone?.length !== undefined && userData?.phone?.length > 10}>
+                                    Next
+                                </Button>
                             </div>
                         </Card>
                         :
@@ -88,7 +92,7 @@ const CompleteProfile = () => {
                             <Card className="w-full">
                                 {/* Page 2 */}
                                 <button type="button" className="relative flex items-center cursor-pointer mb-2" onClick={() => handlePageChange(page - 1)}>
-                                    <FaArrowLeft className="text-(--primary-text-color) w-4 h-4 z-10" />
+                                    <ArrowLeft className="text-(--primary-text-color) w-4 h-4 z-10" />
                                     <p className="text-(--primary-text-color) ml-2">Back</p>
                                 </button>
                                 <div className="flex flex-col text-center mb-5 gap-4">
@@ -103,7 +107,9 @@ const CompleteProfile = () => {
                                         className="text-sm font-medium text-start text-blue-600 hover:text-blue-700">
                                         {isCounting ? `Resend code ${countdown}s` : 'Resend code'}
                                     </button>
-                                    <Button type="button" text={"Submit"} buttonStyle={"primary"} onClick={() => handlePageChange(page + 1)} />
+                                    <Button type="button" variant ={"default"} onClick={() => handlePageChange(page + 1)}>
+                                        Submit
+                                    </Button>
                                 </div>
                             </Card>
                         </div>
@@ -114,4 +120,4 @@ const CompleteProfile = () => {
     )
 };
 
-export default CompleteProfile;
+export default CompleteProfilePage;

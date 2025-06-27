@@ -2,7 +2,7 @@ import z from "zod";
 
 export const createUserSchema = z
     .object({
-        name: z.string().min(3, "The name must have at least 3 characters").max(50, "The name must have at most 50 characters").nullable(),
+        name: z.string().min(3, "The name must have at least 3 characters").max(50, "The name must have at most 50 characters"),
         email: z.string().email("Invalid email").regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invalid email"),
         confirmEmail: z.string().email("Invalid email").regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invalid email"),
         password: z
@@ -16,6 +16,7 @@ export const createUserSchema = z
         country: z.enum(["US", "BR"], { required_error: "Select a country" }).default("BR").nullable().optional(),
         phone: z.string().min(1, "Invalid phone number"),
         photo: z.string().optional().nullable(),
+        terms: z.boolean().default(false).optional(),
     })
     // .superRefine((data, ctx) => {
     //     const { country, phone } = data;
