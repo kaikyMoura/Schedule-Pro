@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@/components/ui/Button";
-import Card from "@/components/ui/Card";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import DateInput from "@/components/ui/DateInput";
 import { useLoading } from "@/contexts/LoadingContext/useLoading";
 import { usePopup } from "@/contexts/PopupContext/usePopup";
@@ -11,9 +11,9 @@ import { ServiceItem } from "@/types/ServiceItem";
 import { Status } from "@/types/Status";
 import dayjs from "dayjs";
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { ArrowDown } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { FaChevronDown } from "react-icons/fa6";
 
 dayjs.extend(customParseFormat);
 
@@ -110,19 +110,19 @@ const EditAppointment = () => {
     const { showPopup } = usePopup();
 
     const handleOpenPopup = () => {
-      showPopup({
-        title: "Update appointment",
-        message: "Are you sure you want to update this customer?",
-        type: "notification",
-        actionsPopup: true,
-        action: handleSubmit,
-      });
+        showPopup({
+            title: "Update appointment",
+            message: "Are you sure you want to update this customer?",
+            type: "notification",
+            actionsPopup: true,
+            action: handleSubmit,
+        });
     };
 
     const { addNotification } = useNotificationStore();
 
     const handleOpenNotification = () => {
-      addNotification("Appointment updated", "an appointment has been updated", "notification");
+        addNotification("Appointment updated", "an appointment has been updated", "notification");
     };
     const { setLoading } = useLoading()
     const router = useRouter()
@@ -180,11 +180,11 @@ const EditAppointment = () => {
         await new Promise(resolve => setTimeout(resolve, 1000));
         setLoading(false)
         showPopup({
-        title: "Appointment Updated Successfully",
-        type: "success",
-        actionsPopup: true,
-        action: handleSubmit,
-      });
+            title: "Appointment Updated Successfully",
+            type: "success",
+            actionsPopup: true,
+            action: handleSubmit,
+        });
     }
 
     if (!encodedId) {
@@ -223,7 +223,7 @@ const EditAppointment = () => {
                                         ))}
                                     </select>
                                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-(--primary-text-color)">
-                                        <FaChevronDown className="text-xs" />
+                                        <ArrowDown className="text-xs" />
                                     </div>
                                 </div>
                             </div>
@@ -261,7 +261,7 @@ const EditAppointment = () => {
                                         ))}
                                     </select>
                                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-(--primary-text-color)">
-                                        <FaChevronDown className="text-xs" />
+                                        <ArrowDown className="text-xs" />
                                     </div>
                                 </div>
                             </div>
@@ -300,8 +300,8 @@ const EditAppointment = () => {
                     </div>
                 </Card>
                 <div className="flex justify-center gap-4 mt-4 ">
-                    <Button type="button" style="secondary" text="cancel" action={() => router.back()} />
-                    <Button type="submit" style="primary" text="create Appointment" action={handleOpenPopup} />
+                    <Button type="button" variant={"secondary"} onClick={() => router.back()}>Cancel</Button>
+                    <Button type="submit" variant={"default"} onClick={handleOpenPopup}>Save</Button>
                 </div>
             </div >
         )

@@ -268,10 +268,10 @@ const SignUpForm = () => {
                 </div>
 
                 <div className="grid w-full grid-cols-2 gap-3">
-                    <SocialSignInButton provider="google" icon={<GoogleIcon />} callbackUrl="/dashboard">
+                    <SocialSignInButton provider="google" icon={<GoogleIcon />} callbackUrl="/">
                         <span className="ml-2">Google</span>
                     </SocialSignInButton>
-                    <SocialSignInButton provider="apple" icon={<AppleIcon />} callbackUrl="/dashboard">
+                    <SocialSignInButton provider="apple" icon={<AppleIcon />} callbackUrl="/">
                         <span className="ml-2">Apple</span>
                     </SocialSignInButton>
                 </div>

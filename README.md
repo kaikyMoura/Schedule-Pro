@@ -12,7 +12,7 @@
 <div align="center">
   
 ![GitHub top language](https://img.shields.io/github/languages/top/kaikyMoura/Schedule-Pro)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ce1f958181d743b98107dbc70dfac5ed)](https://app.codacy.com/gh/kaikyMoura/Schedule-Pro/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ce1f958181d743b98107dbc70dfac5ed)](https://app.codacy.com/gh/kaikyMoura/Schedule-Pro/?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 ![Repository size](https://img.shields.io/github/repo-size/kaikyMoura/Schedule-Pro)
 ![Github last commit](https://img.shields.io/github/last-commit/kaikyMoura/Schedule-Pro)
 ![License](https://img.shields.io/aur/license/LICENSE)

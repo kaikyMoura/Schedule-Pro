@@ -1,3 +1,4 @@
+import { AppSidebar } from "@/components/app-sidebar";
 import Header from "@/components/layout/Header";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
@@ -5,10 +6,11 @@ export default function AuthenticatedLayout({ children }: { children: React.Reac
 
     return (
         <SidebarProvider>
-            <main className="flex h-screen overflow-x-hidden">
-                <div className="flex flex-col flex-grow">
+            <AppSidebar />
+            <main className="flex h-screen w-full overflow-x-hidden">
+                <div className="flex flex-col grow h-screen">
                     <Header />
-                    <div className="flex-grow p-14 transition-all duration-500 ease-in-out overflow-y-auto max-w-screen">
+                    <div className="p-6">
                         {children}
                     </div>
                 </div>

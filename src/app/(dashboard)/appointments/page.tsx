@@ -1,8 +1,8 @@
 "use client";
 
 import AppointmentCard from "@/components/features/AppointmentCard";
-import Button from "@/components/ui/Button";
-import Card from "@/components/ui/Card";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import Modal from "@/components/ui/Modal";
 import { Appointment } from "@/types/Appointment";
 import { Status } from "@/types/Status";
@@ -90,11 +90,13 @@ const Appointments = () => {
 
     return (
         <div>
-            <Card className="w-full">
+            <Card className="p-6">
                 <div className="p-5 border-b border-gray-200">
                     <div className="flex items-center justify-between">
                         <h3 className="text-lg font-semibold text-(--primary-text-color)">Appointments</h3>
-                        <Button className="font-normal text-md max-w-46"  type="button" style="primary" text="New Appointment" action={() => router.push('/appointments/new')} />
+                        <Button className="font-normal text-md max-w-46" type="button" variant={"default"} onClick={() => router.push('/appointments/new')}>
+                            New Appointment
+                        </Button>
                     </div>
                 </div>
                 {appointments != undefined ?
@@ -113,14 +115,8 @@ const Appointments = () => {
                                 Are you sure you want to delete this appointment?
                             </p>
                             <div className="flex justify-between gap-4 mt-4">
-                                <Button type="button" style="secondary" text="cancel" action={() => setIsModalOpen(false)} width={160} />
-                                <Button className="hover:bg-red-600" type="button" style={
-                                    {
-                                        type: 'custom',
-                                        backgroundColor: '#DC2626',
-                                        color: 'text-white'
-                                    }
-                                } text="delete" action={handleDelete} width={160} />
+                                <Button type="button" variant={"secondary"} onClick={() => setIsModalOpen(false)}>Cancel</Button>
+                                <Button className="hover:bg-red-600" type="button" variant={"destructive"} onClick={handleDelete}>Delete</Button>
                             </div>
                         </div>
                     </div>

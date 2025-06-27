@@ -1,17 +1,15 @@
 "use client"
 
-import Button from "@/components/ui/Button";
-import Card from "@/components/ui/Card";
-import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { useLoading } from "@/contexts/LoadingContext/useLoading";
 import { usePopup } from "@/contexts/PopupContext/usePopup";
 import { useNotificationStore } from "@/stores/useNotificationStore";
+import { Heart, Scissors, Smile } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { FaCut, FaHeartbeat, FaHotTub, FaPaintBrush } from "react-icons/fa";
-import { FaBath, FaFaceLaughBeam, FaHandHoldingHeart, FaHandSparkles, FaLeaf, FaPumpSoap, FaScissors, FaSpa, FaUserNurse, FaUserTie } from "react-icons/fa6";
-import { IconType } from "react-icons/lib";
 
 const user = {
     id: '1',
@@ -22,21 +20,7 @@ const user = {
     role: 'CUSTOMER'
 }
 
-const availableIcons: { name: string; icon: IconType }[] = [
-    { name: 'Cut', icon: FaCut },
-    { name: 'Spa', icon: FaSpa },
-    { name: 'HandHoldingHeart', icon: FaHandHoldingHeart },
-    { name: 'FaceLaughBeam', icon: FaFaceLaughBeam },
-    { name: 'UserNurse', icon: FaUserNurse },
-    { name: 'PumpSoap', icon: FaPumpSoap },
-    { name: 'Bath', icon: FaBath },
-    { name: 'HandSparkles', icon: FaHandSparkles },
-    { name: 'PaintBrush', icon: FaPaintBrush },
-    { name: 'Scissors', icon: FaScissors },
-    { name: 'UserTie', icon: FaUserTie },
-    { name: 'Heartbeat', icon: FaHeartbeat },
-    { name: 'HotTub', icon: FaHotTub },
-    { name: 'Leaf', icon: FaLeaf },
+const availableIcons: { name: string; icon: React.ElementType }[] = [
 ]
 const NewService = () => {
     const { showPopup, closePopup } = usePopup();
@@ -90,8 +74,8 @@ const NewService = () => {
             <div className="fixed inset-0 flex flex-col items-center justify-center text-(--primary-text-color)">
                 <h1 className="text-3xl font-bold">Unauthorized</h1>
                 <p className="mt-4">You are not authorized to access this page</p>
-                <Button buttonStyle="primary" className='mt-4 p-4 max-w-36 h-10'>
-                    <Link href="/dashboard">Back to Home</Link>
+                <Button variant={"default"} className='mt-4 p-4 max-w-36 h-10'>
+                    <Link href="/">Back to Home</Link>
                 </Button>
             </div>
         )
@@ -140,7 +124,7 @@ const NewService = () => {
 
                                 <div className="mb-6">
                                     <div className="relative">
-                                        <Input label="Name" type="text" placeholder="Enter service name"
+                                        <Input type="text" placeholder="Enter service name"
                                             onChange={(e: { target: { value: string; }; }) => setType(e.target.value)} value={type} />
                                     </div>
                                 </div>

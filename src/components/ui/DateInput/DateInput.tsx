@@ -1,7 +1,7 @@
+import { Calendar } from 'lucide-react';
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { FaRegCalendar } from 'react-icons/fa6';
 
 interface DateInputProps {
     label?: string;
@@ -47,7 +47,7 @@ const DateInput: React.FC<DateInputProps> = ({
                 popperClassName="shadow-lg rounded-md border border-gray-200"
                 calendarClassName="bg-white p-2 rounded-md"
             />
-            <FaRegCalendar className="absolute inset-y-8.5 right-2 flex items-center pointer-events-none text-(--tertiary-text-color)" />
+            <Calendar className="absolute inset-y-8.5 right-2 flex items-center pointer-events-none text-(--tertiary-text-color)" />
         </div>
     );
 };

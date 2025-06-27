@@ -25,7 +25,7 @@ type MenuItem = {
 }
 
 const mainItems: MenuItem[] = [
-    { name: "Dashboard", link: "/dashboard", icon: LayoutDashboard, tooltip: "Dashboard overview" },
+    { name: "Dashboard", link: "/", icon: LayoutDashboard, tooltip: "Dashboard overview" },
     { name: "Appointments", link: "/appointments", icon: CalendarDays, tooltip: "Manage appointments" },
     { name: "Customers", link: "/customers", icon: Users, tooltip: "Manage customers" },
     { name: "Payments", link: "/payments", icon: CreditCard, tooltip: "Manage payments" },
@@ -55,11 +55,11 @@ const services: MenuItem[] = [
     { name: "Service B", link: "/services/b", icon: CalendarCheck, tooltip: "Service B details" },
 ]
 
-export function SideMenu() {
+export function AppSidebar() {
     const pathname = usePathname()
 
     return (
-        <Sidebar className="w-[var(--sidebar-width)] border-r bg-sidebar text-sidebar-foreground">
+        <Sidebar className="w-(--sidebar-width) border-r bg-sidebar text-sidebar-foreground">
             <SidebarHeader className="border-b border-sidebar-border">
                 <div className="flex items-center gap-2">
                     <CalendarCheck className="text-2xl text-primary" />

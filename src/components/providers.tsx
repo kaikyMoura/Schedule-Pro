@@ -3,26 +3,38 @@ import { AuthProvider } from '@/contexts/AuthContext/AuthContext';
 import { LoadingProvider } from '@/contexts/LoadingContext/LoadingContext';
 import { PopupProvider } from '@/contexts/PopupContext/PopupContext';
 import { RouteTransitionProvider } from '@/contexts/RouteTransitionContext/RouteTransitionContext';
-import { ThemeProvider } from '@/contexts/ThemeContext/ThemeContext';
-import { Tooltip } from 'react-tooltip';
+import {
+    ThemeProvider as NextThemesProvider,
+    type ThemeProviderProps,
+} from 'next-themes';
+import { TooltipProvider } from "@/components/ui/tooltip"
 import { NotificationSidebarProvider } from './features/NotificationSidebar/context';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
+
+    const themeProviderProps: ThemeProviderProps = {
+        attribute: "class",
+        defaultTheme: "system",
+        enableSystem: true,
+        disableTransitionOnChange: true,
+    }
+
     return (
-        <AuthProvider>
-            <LoadingProvider>
-                <RouteTransitionProvider>
-                    <PopupProvider>
-                        <NotificationSidebarProvider>
-                            <ThemeProvider>
-                                {children}
-                                <Tooltip id="my-tooltip" className='z-120 whitespace-pre-line bg-(--secondary-bg) text-(--primary-text-color)' place="right-start" />
-                            </ThemeProvider>
-                        </NotificationSidebarProvider>
-                    </PopupProvider>
-                </RouteTransitionProvider>
-            </LoadingProvider>
-        </AuthProvider>
+        <NextThemesProvider {...themeProviderProps}>
+            <AuthProvider>
+                <LoadingProvider>
+                    <RouteTransitionProvider>
+                        <PopupProvider>
+                            <NotificationSidebarProvider>
+                                <TooltipProvider delayDuration={0}>
+                                    {children}
+                                </TooltipProvider>
+                            </NotificationSidebarProvider>
+                        </PopupProvider>
+                    </RouteTransitionProvider>
+                </LoadingProvider>
+            </AuthProvider>
+        </NextThemesProvider >
     );
 }
 

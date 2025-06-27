@@ -2,7 +2,7 @@
 import AppointmentCard from "@/components/features/AppointmentCard";
 import CustomerList from "@/components/features/CustomerList";
 import Calendar from "@/components/ui/Calendar";
-import { Card } from "@/components/ui/Card";
+import { Card } from "@/components/ui/card";
 import { Appointment } from "@/types/Appointment";
 import { Status } from "@/types/Status";
 import { User } from "@/types/User";
@@ -105,7 +105,7 @@ const appointments: Appointment[] = [
   },
 ];
 
-export default function Home() {
+export default function DashboardPage() {
 
   return (
     <div className="sm:flex sm:flex-col sm:gap-6 md:grid md:grid-cols-2 md:gap-6">

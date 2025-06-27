@@ -2,9 +2,9 @@
 import dayjs, { Dayjs } from 'dayjs';
 import Link from 'next/link';
 import React, { useCallback, useState } from 'react';
-import { FaChevronDown, FaChevronLeft, FaChevronRight, FaPlus } from 'react-icons/fa6';
 import styles from './Calendar.module.scss';
 import { Appointment } from '@/types/Appointment';
+import { ArrowDown, ArrowLeft, ArrowRight, Plus } from 'lucide-react';
 
 
 interface CalendarProps {
@@ -100,7 +100,7 @@ const Calendar: React.FC<CalendarProps> = ({ appointments, minDate, maxDate }) =
                     <h3 className="text-lg font-semibold text-(--primary-text-color)">Calendar</h3>
                     <div className="flex items-center space-x-2">
                         <Link href="/appointments/new" className="flex items-center gap-1 px-3 py-1 text-sm rounded-md bg-blue-50 text-blue-600 hover:bg-blue-100">
-                            <FaPlus className='mr-1' /> New Appointment
+                            <Plus className='mr-1' /> New Appointment
                         </Link>
                         <div className="relative">
                             <select className="appearance-none bg-(--background) border border-gray-200 text-(--primary-text-color) py-1 px-3 pr-8 cursor-pointer rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
@@ -110,7 +110,7 @@ const Calendar: React.FC<CalendarProps> = ({ appointments, minDate, maxDate }) =
                                 <option>Month</option>
                             </select>
                             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-(--primary-text-color)">
-                                <FaChevronDown className="text-(--tertiary-text-color)" />
+                                <ArrowDown className="text-(--tertiary-text-color)" />
                             </div>
                         </div>
                     </div>
@@ -120,11 +120,11 @@ const Calendar: React.FC<CalendarProps> = ({ appointments, minDate, maxDate }) =
             <div className="p-5">
                 <div className="flex items-center justify-between mb-4">
                     <button className="p-2 rounded-md hover:bg-gray-100" onClick={goToPreviousMonth} disabled={minDate ? visibleMonth.isBefore(dayjs(minDate).startOf('month')) : undefined}>
-                        <FaChevronLeft className="text-(--tertiary-text-color)" />
+                        <ArrowLeft className="text-(--tertiary-text-color)" />
                     </button>
                     <h4 className="text-lg font-medium text-(--primary-text-color)">{visibleMonth.format('MMMM YYYY')}</h4>
                     <button className="p-2 rounded-md hover:bg-gray-100" onClick={goToNextMonth} disabled={maxDate ? visibleMonth.isAfter(dayjs(maxDate).startOf('month')) : undefined}>
-                        <FaChevronRight className="text-(--tertiary-text-color)" />
+                        <ArrowRight className="text-(--tertiary-text-color)" />
                     </button>
                 </div>
 

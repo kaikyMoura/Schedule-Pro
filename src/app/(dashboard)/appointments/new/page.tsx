@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/button";
 import Card from "@/components/ui/Card";
 import DateInput from "@/components/ui/DateInput";
 import Modal from "@/components/ui/Modal";
