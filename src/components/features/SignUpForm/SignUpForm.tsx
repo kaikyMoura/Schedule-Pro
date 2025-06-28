@@ -11,14 +11,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Checkbox } from "@radix-ui/react-checkbox";
 import { Separator } from "@radix-ui/react-dropdown-menu";
-import { AppleIcon, Eye, EyeOff, Link, Lock, Mail, Phone, UploadCloud, User2 } from "lucide-react";
+import { AppleIcon, Eye, EyeOff, Lock, Mail, Phone, UploadCloud, User2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import SocialSignInButton from "../SocialSignInButton";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const SignUpForm = () => {
-    // const route = useRouter();
+    const route = useRouter();
 
     const form = useForm<z.infer<typeof createUserSchema>>({
         resolver: zodResolver(createUserSchema),
@@ -38,10 +40,12 @@ const SignUpForm = () => {
 
     // const [checked, setChecked] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
     const [image, setImage] = useState<string | null>()
     const [tempImage, setTempImage] = useState<string>()
     console.log(image)
+
     /**
      * Handles the file input event by reading the selected file and setting
      * the temporary image state to the base64-encoded data URL representing
@@ -86,17 +90,29 @@ const SignUpForm = () => {
             return;
         }
 
-        // const payload: CreateUserSchema = {
-        //     name: data.name,
-        //     email: data.email,
-        //     confirmEmail: data.confirmEmail,
-        //     password: data.password,
-        //     confirmPassword: data.confirmPassword,
-        //     phone: data.phone,
-        //     photo: image
-        // }
+        const payload: CreateUserSchema = {
+            name: data.name,
+            email: data.email,
+            confirmEmail: data.confirmEmail,
+            password: data.password,
+            confirmPassword: data.confirmPassword,
+            phone: data.phone,
+            photo: image
+        }
 
+        localStorage.setItem("signupPayload", JSON.stringify(payload));
 
+        route.push('/complete-signup');
+    }
+
+    const onInvalid = (errors: any) => {
+        alert("Form validation errors:" + JSON.stringify(errors));
+        showPopup({
+            title: "Error",
+            message: "Please fill in all required fields correctly.",
+            type: "error",
+            actionsPopup: false,
+        });
     }
 
     return (
@@ -110,7 +126,7 @@ const SignUpForm = () => {
 
             <CardContent>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} className="space-y-6">
 
                         <FormField
                             control={form.control}
@@ -131,6 +147,23 @@ const SignUpForm = () => {
                                                 <Input id="file-upload" type="file" className="sr-only" onChange={handleFileInput} accept="image/png, image/jpeg" />
                                             </label>
                                         </Button>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="name"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Name</FormLabel>
+                                    <FormControl>
+                                        <div className="relative">
+                                            <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                                            <Input type="text" placeholder="Your Name" className="pl-10" {...field} />
+                                        </div>
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -217,7 +250,10 @@ const SignUpForm = () => {
                                     <FormControl>
                                         <div className="relative">
                                             <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                                            <Input type={showPassword ? "text" : "password"} placeholder="••••••••" className="pl-10" {...field} />
+                                            <Input type={showConfirmPassword ? "text" : "password"} placeholder="••••••••" className="pl-10" {...field} />
+                                            <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 h-7 w-7 -translate-y-1/2" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                                                {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                            </Button>
                                         </div>
                                     </FormControl>
                                     <FormMessage />
@@ -238,7 +274,7 @@ const SignUpForm = () => {
                                     </FormControl>
                                     <div className="space-y-1 leading-none">
                                         <FormLabel>
-                                            I agree to the <Link href="/terms" className="text-primary underline hover:no-underline">terms and conditions</Link>.
+                                            I agree to the <Link href="/terms" className="text-blue-600 underline hover:no-underline">terms and conditions</Link>.
                                         </FormLabel>
                                     </div>
                                     <FormMessage />
@@ -246,7 +282,7 @@ const SignUpForm = () => {
                             )}
                         />
 
-                        <Button type="submit" className="w-full">Create Account</Button>
+                        <Button type="submit" className="w-full" disabled={!form.formState.isValid}>Create Account</Button>
                     </form>
                 </Form>
             </CardContent>

@@ -27,7 +27,6 @@ type MenuItem = {
 const mainItems: MenuItem[] = [
     { name: "Dashboard", link: "/", icon: LayoutDashboard, tooltip: "Dashboard overview" },
     { name: "Appointments", link: "/appointments", icon: CalendarDays, tooltip: "Manage appointments" },
-    { name: "Customers", link: "/customers", icon: Users, tooltip: "Manage customers" },
     { name: "Payments", link: "/payments", icon: CreditCard, tooltip: "Manage payments" },
     { name: "Reports", link: "/reports", icon: ChartLine, tooltip: "View reports" }
 ]
@@ -42,11 +41,6 @@ const adminItems = [
         title: "Customer Management",
         url: "/admin/customers",
         icon: Users,
-    },
-    {
-        title: "Document Categories",
-        url: "/admin/categories",
-        icon: Settings,
     },
     {
         title: "Security Settings",

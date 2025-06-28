@@ -3,8 +3,8 @@ import z from "zod";
 export const createUserSchema = z
     .object({
         name: z.string().min(3, "The name must have at least 3 characters").max(50, "The name must have at most 50 characters"),
-        email: z.string().email("Invalid email").regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invalid email"),
-        confirmEmail: z.string().email("Invalid email").regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invalid email"),
+        email: z.string().email("Invalid email"),
+        confirmEmail: z.string().email("Invalid email"),
         password: z
             .string()
             .min(8, "The password must have at least 8 characters")
@@ -14,7 +14,7 @@ export const createUserSchema = z
             .regex(/[^a-zA-Z0-9]/, "Must contain at least one special character"),
         confirmPassword: z.string().min(8, "The password must have at least 8 characters"),
         country: z.enum(["US", "BR"], { required_error: "Select a country" }).default("BR").nullable().optional(),
-        phone: z.string().min(1, "Invalid phone number"),
+        phone: z.string().min(10, "The phone number must have at least 10 characters").max(15, "The phone number must have at most 15 characters"),
         photo: z.string().optional().nullable(),
         terms: z.boolean().default(false).optional(),
     })

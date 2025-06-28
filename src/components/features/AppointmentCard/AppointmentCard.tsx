@@ -1,3 +1,5 @@
+"use client";
+
 import { Appointment } from '@/types/Appointment';
 import { AlertCircle, Badge, CheckCircle, Clock, Edit, FileText, Trash } from 'lucide-react';
 import React, { useCallback, useEffect } from 'react';
@@ -12,7 +14,7 @@ interface AppointmentCardProps {
 const AppointmentCard: React.FC<AppointmentCardProps> = ({ appointments, onSelect, limit = 5 }) => {
     const displayedAppointments = appointments.slice(0, limit);
 
-    const getStatusBadge = useCallback(async (status: string) => {
+    const getStatusBadge = useCallback((status: string) => {
         switch (status) {
             case "completed":
                 return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Completed</Badge>
@@ -27,7 +29,7 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({ appointments, onSelec
         }
     }, [])
 
-    const getStatusIcon = useCallback(async (status: string) => {
+    const getStatusIcon = useCallback((status: string) => {
         switch (status) {
             case "completed":
                 return <CheckCircle className="h-4 w-4 text-green-600" />

@@ -1,4 +1,5 @@
 "use client";
+
 import AppointmentCard from "@/components/features/AppointmentCard";
 import UsersTable from "@/components/features/UsersTable";
 import Calendar from "@/components/ui/Calendar";
@@ -17,6 +18,7 @@ const customers: User[] = [
     email: 'john@example.com',
     phone: '123-456-7890',
     photo: 'https://randomuser.me/api/portraits/men/1.jpg',
+    role: Role.CUSTOMER,
   },
   {
     id: '2',
@@ -24,6 +26,7 @@ const customers: User[] = [
     email: 'sarah@example.com',
     phone: '987-654-3210',
     photo: 'https://randomuser.me/api/portraits/women/2.jpg',
+    role: Role.CUSTOMER,
   },
   {
     id: '3',
@@ -31,6 +34,7 @@ const customers: User[] = [
     email: 'michael@example.com',
     phone: '555-555-5555',
     photo: 'https://randomuser.me/api/portraits/men/3.jpg',
+    role: Role.CUSTOMER,
   },
   {
     id: '4',
@@ -38,6 +42,7 @@ const customers: User[] = [
     email: 'emily@example.com',
     phone: '111-222-3333',
     photo: 'https://randomuser.me/api/portraits/women/4.jpg',
+    role: Role.CUSTOMER,
     appointments: [
       {
         id: 'e122cbb2-f4f5-4a5c-97ec-d5d53f987a4c',
@@ -58,6 +63,7 @@ const customers: User[] = [
     email: 'daniel@example.com',
     phone: '444-555-6666',
     photo: 'https://randomuser.me/api/portraits/men/5.jpg',
+    role: Role.CUSTOMER,
     appointments: [
       {
         id: '9d5cfa4f-1f8b-4721-bd14-cf7fcb6e8bb',
@@ -78,6 +84,7 @@ const customers: User[] = [
     email: 'olivia@example.com',
     phone: '777-888-9999',
     photo: 'https://randomuser.me/api/portraits/women/5.jpg',
+    role: Role.CUSTOMER,
   },
 ];
 
@@ -128,9 +135,9 @@ export default function DashboardPage() {
               <h3 className="text-lg font-semibold text-(--primary-text-color)">Recent Customers</h3>
             </div>
           </div>
-          <UsersTable users={customers} limit={8} role={Role.CUSTOMER} />
+          <UsersTable showHeader={false} users={customers} limit={5} role={Role.CUSTOMER} columns={['photo', 'name']} />
           <div className="p-4 border-t border-gray-200 text-center">
-            <Link href={"/customers"} className="text-sm font-medium text-blue-600 hover:text-blue-700">
+            <Link href={"/admin/customers"} className="text-sm font-medium text-blue-600 hover:text-blue-700">
               View all Customers
             </Link>
           </div>

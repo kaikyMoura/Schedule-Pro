@@ -182,8 +182,9 @@ The application is accessible via the unique Vercel-generated URL:
 |  `/login`  |	Authenticate and get token |
 |  `/`  |  Authenticated user dashboard  |
 |  `/appointmens`  |  View and manage appointments  |
-|  `/customers`  | View and manage customers (**Admin only**)  |
-|  `/services`  |  View and manage (**Admin only**) available services  |
+|  `/admin/customers`  | View and manage customers (**Admin only**)  |
+|  `/admin/staffs`  | View and manage the staff (**Admin only**)  |
+|  `/admin/services`  |  View and manage (**Admin only**) available services  |
 |  `/profile`  |  User profile and account settings |
 
 > ⚠️ **Important**
