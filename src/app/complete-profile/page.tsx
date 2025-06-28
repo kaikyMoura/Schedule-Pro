@@ -1,7 +1,7 @@
 "use client";
 import OTPInput from "@/components/features/OTPInput";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/Card";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Loader from "@/components/ui/Loader";
@@ -16,8 +16,6 @@ import z from "zod";
 const CompleteProfilePage = () => {
     const {
         register,
-        handleSubmit,
-        formState: { errors },
     } = useForm<z.infer<typeof createUserSchema>>({
         resolver: zodResolver(createUserSchema),
     });

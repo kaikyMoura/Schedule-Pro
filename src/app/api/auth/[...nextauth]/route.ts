@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-export const authOptions = {
+const authOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_OAUTH_CLIENT_ID!,
@@ -9,10 +9,10 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async redirect({ url, baseUrl }) {
+    async redirect({ baseUrl }: { baseUrl: string }) {
       return `${baseUrl}/auth/callback`;
     },
-    async session({ session, token }) {
+    async session({ session }: { session: import("next-auth").Session }) {
       return session;
     },
   },

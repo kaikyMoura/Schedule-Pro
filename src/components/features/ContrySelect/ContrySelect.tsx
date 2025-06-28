@@ -2,9 +2,9 @@
 import { CountryCode, SelectOption } from '@/config/countries';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import clsx from 'clsx';
+import { ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import { RefObject, useRef, useState } from 'react';
-import { IoIosArrowForward } from 'react-icons/io';
 
 interface CountrySelectProps {
     className?: string;
@@ -41,7 +41,7 @@ const CountrySelect = ({ options, value, onChange, className }: CountrySelectPro
                     <Image src={selectedOption.icon} alt={selectedOption.label} width={22} height={22} />
                     {selectedOption.label}
                 </span>
-                <IoIosArrowForward className={`ml-2 ${clsx('transition-transform', { 'rotate-90': isOpen })}`} fontSize={20} />
+                <ChevronRight className={`ml-2 ${clsx('transition-transform', { 'rotate-90': isOpen })}`} fontSize={20} />
             </button>
 
             {isOpen && (

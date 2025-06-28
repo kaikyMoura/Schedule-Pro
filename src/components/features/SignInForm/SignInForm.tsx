@@ -6,22 +6,18 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { usePopup } from "@/contexts/PopupContext/usePopup";
-import { createUserSchema, CreateUserSchema } from "@/schemas/create-user.schema";
+import { LoginUserSchema, loginUserSchema } from "@/schemas/login-user.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { Checkbox } from "@radix-ui/react-checkbox";
 import { Separator } from "@radix-ui/react-dropdown-menu";
-import { AppleIcon, Eye, EyeOff, Link, Lock, Mail, Phone, UploadCloud, User2 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { AppleIcon, Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useRef, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import SocialSignInButton from "../SocialSignInButton";
-import { LoginUserSchema, loginUserSchema } from "@/schemas/login-user.schema";
-import ReCAPTCHA from "react-google-recaptcha";
 
 const SignInForm = () => {
-    const route = useRouter();
+    // const route = useRouter();
 
     const form = useForm<z.infer<typeof loginUserSchema>>({
         resolver: zodResolver(loginUserSchema),
@@ -36,7 +32,7 @@ const SignInForm = () => {
     const { showPopup } = usePopup();
 
     const [checked, setChecked] = useState(false)
-    const [remenberMe, setRemenberMe] = useState(false)
+    // const [remenberMe, setRemenberMe] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
 
     const onSubmit = async (data: LoginUserSchema) => {
@@ -51,13 +47,12 @@ const SignInForm = () => {
             return;
         }
 
-        console.log("recaptchaRef", recaptchaRef)
         recaptchaRef.current?.execute()
 
-        const payload: LoginUserSchema = {
-            email: data.email,
-            password: data.password,
-        }
+        // const payload: LoginUserSchema = {
+        //     email: data.email,
+        //     password: data.password,
+        // }
     }
 
 

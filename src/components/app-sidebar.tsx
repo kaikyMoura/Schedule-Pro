@@ -34,8 +34,13 @@ const mainItems: MenuItem[] = [
 
 const adminItems = [
     {
-        title: "User Management",
-        url: "/admin/users",
+        title: "Staff Management",
+        url: "/admin/staffs",
+        icon: Users,
+    },
+    {
+        title: "Customer Management",
+        url: "/admin/customers",
         icon: Users,
     },
     {

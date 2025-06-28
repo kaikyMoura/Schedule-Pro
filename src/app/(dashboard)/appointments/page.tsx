@@ -3,7 +3,6 @@
 import AppointmentCard from "@/components/features/AppointmentCard";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import Modal from "@/components/ui/Modal";
 import { Appointment } from "@/types/Appointment";
 import { Status } from "@/types/Status";
 import { useRouter } from "next/navigation";
@@ -58,10 +57,7 @@ const appointments: Appointment[] = [
 
 const Appointments = () => {
     const router = useRouter();
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedAppointment, setSelectedAppointment] = useState<Appointment>();
-    const [modalType, setModalType] = useState<'edit' | 'delete'>('edit');
 
 
     const handleSelect = (action: string, appointment: Appointment) => {
@@ -70,23 +66,19 @@ const Appointments = () => {
         if (action === 'edit') {
             const encodedId = encodeURIComponent(Buffer.from(appointment.id).toString('base64'));
             router.push(`/appointments/edit/${encodedId}`);
-
-        } else if (action === 'delete') {
-            setIsModalOpen(true);
-            setModalType('delete');
+            console.log(selectedAppointment);
         }
 
     };
 
-    const handleDelete = () => {
-        if (selectedAppointment) {
-            const index = appointments.findIndex((appointment) => appointment.id === selectedAppointment.id);
-            if (index !== -1) {
-                alert(`Appointment ${selectedAppointment.id} deleted successfully`);
-            }
-        }
-        setIsModalOpen(false);
-    };
+    // const handleDelete = () => {
+    //     if (selectedAppointment) {
+    //         const index = appointments.findIndex((appointment) => appointment.id === selectedAppointment.id);
+    //         if (index !== -1) {
+    //             alert(`Appointment ${selectedAppointment.id} deleted successfully`);
+    //         }
+    //     }
+    // };
 
     return (
         <div>
@@ -105,7 +97,7 @@ const Appointments = () => {
                     <div className="p-4 text-center text-(--tertiary-text-color)">No appointments found</div>
                 }
             </Card>
-
+            {/* 
             {isModalOpen && <Modal isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(!isModalOpen)} >
                 {modalType === 'delete' &&
                     <div className="max-w-sm mx-auto">
@@ -121,7 +113,7 @@ const Appointments = () => {
                         </div>
                     </div>
                 }
-            </Modal>}
+            </Modal>} */}
         </div>
     )
 }

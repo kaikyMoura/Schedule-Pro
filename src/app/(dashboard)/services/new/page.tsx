@@ -3,10 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useLoading } from "@/contexts/LoadingContext/useLoading";
 import { usePopup } from "@/contexts/PopupContext/usePopup";
 import { useNotificationStore } from "@/stores/useNotificationStore";
-import { Heart, Scissors, Smile } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -25,15 +25,15 @@ const availableIcons: { name: string; icon: React.ElementType }[] = [
 const NewService = () => {
     const { showPopup, closePopup } = usePopup();
 
-    const handleOpenPopup = () => {
-        showPopup({
-            title: "Update appointment",
-            message: "Are you sure you want to update this customer?",
-            type: "notification",
-            actionsPopup: true,
-            action: handleSubmit,
-        });
-    };
+    // const handleOpenPopup = () => {
+    //     showPopup({
+    //         title: "Update appointment",
+    //         message: "Are you sure you want to update this customer?",
+    //         type: "notification",
+    //         actionsPopup: true,
+    //         action: handleSubmit,
+    //     });
+    // };
 
     const { addNotification } = useNotificationStore();
 
@@ -131,14 +131,16 @@ const NewService = () => {
 
                                 <div className="mb-6">
                                     <div className="relative">
-                                        <Input label="Price" type="number" placeholder="Enter service price"
+                                        <Label>Service Price</Label>
+                                        <Input type="number" placeholder="Enter service price"
                                             onChange={(e: { target: { value: string; }; }) => setPrice(Number(e.target.value))} value={price} />
                                     </div>
                                 </div>
 
                                 <div className="">
                                     <div className="relative">
-                                        <Input label="Average Duration" type="number" placeholder="Enter service duration"
+                                        <Label>Average Duration</Label>
+                                        <Input type="number" placeholder="Enter service duration"
                                             onChange={(e: { target: { value: string; }; }) => setDuration(Number(e.target.value))} value={duration} />
                                     </div>
                                 </div>
@@ -147,8 +149,8 @@ const NewService = () => {
                     </form>
                 </Card>
                 <div className="flex justify-between gap-4 mt-4">
-                    <Button type="button" buttonStyle="secondary" text="cancel" onClick={() => router.back()} width={450} />
-                    <Button type="submit" buttonStyle="primary" text="create service" onClick={handleOpenPopup} width={450} />
+                    <Button type="button" variant={"secondary"} onClick={() => router.back()}>Cancel</Button>
+                    <Button type="submit" variant={"default"} onClick={handleSubmit} >Create Service</Button>
                 </div>
             </div>
         )

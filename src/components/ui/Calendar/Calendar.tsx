@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React, { useCallback, useState } from 'react';
 import styles from './Calendar.module.scss';
 import { Appointment } from '@/types/Appointment';
-import { ArrowDown, ArrowLeft, ArrowRight, Plus } from 'lucide-react';
+import { ChevronDown, ArrowLeft, ArrowRight, Plus } from 'lucide-react';
 
 
 interface CalendarProps {
@@ -110,7 +110,7 @@ const Calendar: React.FC<CalendarProps> = ({ appointments, minDate, maxDate }) =
                                 <option>Month</option>
                             </select>
                             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-(--primary-text-color)">
-                                <ArrowDown className="text-(--tertiary-text-color)" />
+                                <ChevronDown className="text-(--tertiary-text-color)" />
                             </div>
                         </div>
                     </div>

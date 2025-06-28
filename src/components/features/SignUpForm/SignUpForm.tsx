@@ -12,14 +12,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Checkbox } from "@radix-ui/react-checkbox";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { AppleIcon, Eye, EyeOff, Link, Lock, Mail, Phone, UploadCloud, User2 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import z from "zod";
 import SocialSignInButton from "../SocialSignInButton";
-import { useForm } from "react-hook-form";
 
 const SignUpForm = () => {
-    const route = useRouter();
+    // const route = useRouter();
 
     const form = useForm<z.infer<typeof createUserSchema>>({
         resolver: zodResolver(createUserSchema),
@@ -37,12 +36,12 @@ const SignUpForm = () => {
 
     const { showPopup } = usePopup();
 
-    const [checked, setChecked] = useState(false)
+    // const [checked, setChecked] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
 
     const [image, setImage] = useState<string | null>()
     const [tempImage, setTempImage] = useState<string>()
-
+    console.log(image)
     /**
      * Handles the file input event by reading the selected file and setting
      * the temporary image state to the base64-encoded data URL representing
@@ -72,6 +71,7 @@ const SignUpForm = () => {
         }
 
         reader.readAsDataURL(file)
+        setImage(tempFileUrl)
     }
 
     const onSubmit = async (data: CreateUserSchema) => {
@@ -86,22 +86,18 @@ const SignUpForm = () => {
             return;
         }
 
-        const payload: CreateUserSchema = {
-            name: data.name,
-            email: data.email,
-            confirmEmail: data.confirmEmail,
-            password: data.password,
-            confirmPassword: data.confirmPassword,
-            phone: data.phone,
-            photo: image
-        }
+        // const payload: CreateUserSchema = {
+        //     name: data.name,
+        //     email: data.email,
+        //     confirmEmail: data.confirmEmail,
+        //     password: data.password,
+        //     confirmPassword: data.confirmPassword,
+        //     phone: data.phone,
+        //     photo: image
+        // }
 
 
     }
-
-    const onInvalid = (validationErrors: unknown) => {
-        console.log("THE VALIDATION FAILED! Errors:", validationErrors);
-    };
 
     return (
         <Card className="w-full max-w-lg mx-auto">
@@ -119,7 +115,7 @@ const SignUpForm = () => {
                         <FormField
                             control={form.control}
                             name="photo"
-                            render={({ field }) => (
+                            render={() => (
                                 <FormItem className="flex flex-col items-center justify-center space-y-4">
                                     <Avatar className="h-24 w-24">
                                         <AvatarImage src={tempImage ?? undefined} alt="Profile preview" />

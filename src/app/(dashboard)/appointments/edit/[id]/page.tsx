@@ -11,7 +11,7 @@ import { ServiceItem } from "@/types/ServiceItem";
 import { Status } from "@/types/Status";
 import dayjs from "dayjs";
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { ArrowDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
@@ -223,7 +223,7 @@ const EditAppointment = () => {
                                         ))}
                                     </select>
                                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-(--primary-text-color)">
-                                        <ArrowDown className="text-xs" />
+                                        <ChevronDown className="text-xs" />
                                     </div>
                                 </div>
                             </div>
@@ -261,7 +261,7 @@ const EditAppointment = () => {
                                         ))}
                                     </select>
                                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-(--primary-text-color)">
-                                        <ArrowDown className="text-xs" />
+                                        <ChevronDown className="text-xs" />
                                     </div>
                                 </div>
                             </div>

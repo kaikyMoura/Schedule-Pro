@@ -1,20 +1,17 @@
 "use client";
 
-import Button from "@/components/ui/button";
-import Card from "@/components/ui/Card";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import DateInput from "@/components/ui/DateInput";
-import Modal from "@/components/ui/Modal";
 import SearchInput from "@/components/ui/SearchInput";
 import { useLoading } from "@/contexts/LoadingContext/useLoading";
 import dayjs from "dayjs";
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { ChevronDown, User, UserPlus } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FaInfoCircle } from "react-icons/fa";
-import { FaChevronDown, FaUser, FaUserPlus } from "react-icons/fa6";
 import styles from "./page.module.scss";
-import Input from "@/components/ui/Input";
 
 dayjs.extend(customParseFormat);
 
@@ -155,8 +152,8 @@ const CreateAppointment = () => {
     const [notes, setNotes] = useState<string>("");
 
     const [showAddCustomerModal, setShowAddCustomerModal] = useState(false);
-
-    const [customCustomer, setCustomCustomer] = useState<Customer | null>(null);
+    console.log(showAddCustomerModal)
+    // const [customCustomer, setCustomCustomer] = useState<Customer | null>(null);
 
     const today = new Date();
     const year = today.getFullYear();
@@ -186,12 +183,12 @@ const CreateAppointment = () => {
         setLoading(false)
     }
 
-    const handleAddCustomCustomer = () => {
-        setSelectedCustomer(customCustomer);
-        setShowAddCustomerModal(false);
+    // const handleAddCustomCustomer = () => {
+    //     setSelectedCustomer(customCustomer);
+    //     setShowAddCustomerModal(false);
 
-        setCustomCustomer(null);
-    }
+    //     setCustomCustomer(null);
+    // }
 
     return (
         <div className="min-h-screen max-h-screen">
@@ -212,7 +209,7 @@ const CreateAppointment = () => {
                                         ))}
                                     </select>
                                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-(--primary-text-color)">
-                                        <FaChevronDown className="text-xs" />
+                                        <ChevronDown className="text-xs" />
                                     </div>
                                 </div>
                             </div>
@@ -250,7 +247,7 @@ const CreateAppointment = () => {
                                         ))}
                                     </select>
                                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-(--primary-text-color)">
-                                        <FaChevronDown className="text-xs" />
+                                        <ChevronDown className="text-xs" />
                                     </div>
                                 </div>
                             </div>
@@ -280,7 +277,7 @@ const CreateAppointment = () => {
                                     </div>
                                     <button type="button" className="flex items-center justify-center w-full py-2 px-3 border border-dashed border-gray-300 rounded-md text-(--secondary-text-color) hover:text-blue-500 hover:border-blue-300 hover:bg-blue-50"
                                         onClick={() => setShowAddCustomerModal(true)}>
-                                        <FaUserPlus className="mr-2" />
+                                        <UserPlus className="mr-2" />
                                         <p>Add new customer</p>
                                     </button>
                                 </div>
@@ -301,7 +298,7 @@ const CreateAppointment = () => {
                                                                 width={40}
                                                                 height={40} />
                                                             :
-                                                            <FaUser className="object-cover w-full h-full text-blue-500" />
+                                                            <User className="object-cover w-full h-full text-blue-500" />
                                                         }
                                                     </div>
                                                     <div>
@@ -370,42 +367,9 @@ const CreateAppointment = () => {
                 </div>
             </Card>
             <div className="flex justify-between gap-4 mt-4">
-                <Button type="button" style="secondary" text="cancel" action={() => router.back()} width={450} />
-                <Button type="submit" style="primary" text="create Appointment" action={handleSubmit} width={450} />
+                <Button type="button" variant={"secondary"} onClick={() => router.back()}>Cancel</Button>
+                <Button type="submit" variant={"default"} onClick={handleSubmit} >CreateAppointment</Button>
             </div>
-            {showAddCustomerModal && <Modal isModalOpen={showAddCustomerModal} closeModal={() => setShowAddCustomerModal(!showAddCustomerModal)} >
-                <div className="mx-auto p-6">
-                    <div className="flex flex-col items-center text-center space-y-4">
-                        <div className="flex items-center space-x-2 border-b border-gray-200 pb-4">
-                            <h2><span className="text-2xl font-bold text-(--secondary-text-color)">
-                                Create temporary customer
-                            </span></h2>
-                            <FaInfoCircle className="cursor-pointer text-2xl text-(--secondary-text-color)"
-                                data-tooltip-id="my-tooltip"
-                                data-tooltip-content={
-                                    `⚠️ This is a temporary customer.\n
-                                    Their data will not be saved and will only be used for this appointment.\n
-                                    If they want to access the application in the future,\n
-                                    they will need to create an account.`
-                                } />
-                        </div>
-
-                        <div className="flex flex-col text-start w-full pt-4 text-md  space-y-2">
-                            <Input type="text" label="Name" placeholder="name" value={customCustomer?.name ?? ''}
-                                onChange={(e) => setCustomCustomer({ ...customCustomer!, name: e.target.value })} />
-                            <Input type="email" label="Email" placeholder="email" value={customCustomer?.email ?? ''}
-                                onChange={(e) => setCustomCustomer({ ...customCustomer!, email: e.target.value })} />
-                            <Input type="tel" label="Phone Number" placeholder="phone number" value={customCustomer?.number ?? ''}
-                                onChange={(e) => setCustomCustomer({ ...customCustomer!, number: e.target.value })} />
-                        </div>
-                    </div>
-                    <div className="flex gap-4 mt-6">
-                        <Button type="button" style="secondary" text="cancel" action={() => setShowAddCustomerModal(!showAddCustomerModal)} />
-                        <Button type="submit" style="primary" text="create customer" action={handleAddCustomCustomer} />
-                    </div>
-                </div>
-
-            </Modal>}
         </div>
     )
 }

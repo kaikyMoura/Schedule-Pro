@@ -8,7 +8,7 @@ export default function AuthenticatedLayout({ children }: { children: React.Reac
         <SidebarProvider>
             <AppSidebar />
             <main className="flex h-screen w-full overflow-x-hidden">
-                <div className="flex flex-col grow h-screen">
+                <div className="flex flex-col grow h-screen w-full">
                     <Header />
                     <div className="p-6">
                         {children}

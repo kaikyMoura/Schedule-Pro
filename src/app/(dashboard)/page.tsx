@@ -1,9 +1,10 @@
 "use client";
 import AppointmentCard from "@/components/features/AppointmentCard";
-import CustomerList from "@/components/features/CustomerList";
+import UsersTable from "@/components/features/UsersTable";
 import Calendar from "@/components/ui/Calendar";
 import { Card } from "@/components/ui/card";
 import { Appointment } from "@/types/Appointment";
+import { Role } from "@/types/Role";
 import { Status } from "@/types/Status";
 import { User } from "@/types/User";
 import { BadgeDollarSign, ChartPie, Plus, UserPlus } from "lucide-react";
@@ -127,7 +128,7 @@ export default function DashboardPage() {
               <h3 className="text-lg font-semibold text-(--primary-text-color)">Recent Customers</h3>
             </div>
           </div>
-          <CustomerList customers={customers} limit={8} />
+          <UsersTable users={customers} limit={8} role={Role.CUSTOMER} />
           <div className="p-4 border-t border-gray-200 text-center">
             <Link href={"/customers"} className="text-sm font-medium text-blue-600 hover:text-blue-700">
               View all Customers
