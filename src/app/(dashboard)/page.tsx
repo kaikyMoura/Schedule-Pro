@@ -118,10 +118,6 @@ export default function DashboardPage() {
   return (
     <div className="sm:flex sm:flex-col sm:gap-6 md:grid md:grid-cols-2 md:gap-6">
 
-      {/* <button type="button" className="appearance-none bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded" onClick={handleOpenNotification}>
-        Click me
-      </button> */}
-
       <div className="lg:w-180 max-h-full">
         <Card className="w-full">
           <Calendar appointments={appointments} />
